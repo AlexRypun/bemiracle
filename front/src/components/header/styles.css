@@ -1,0 +1,39 @@
+.menu-bar.menu-toggle {
+    color: #000000;
+}
+.akasha-menu-panel > ul > li > span.akasha-menu-item-title {
+    display: inline-block;
+    line-height: 50px;
+}
+.box-header-nav .main-menu > .menu-item > span.akasha-menu-item-title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 60px;
+    vertical-align: middle;
+    position: relative;
+    display: inline-block;
+    color: #000000;
+}
+.header-logo svg {
+    vertical-align: bottom;
+}
+.header-mobile .header-logo {
+    max-width: 144px;
+    display: inline-block;
+    width: 100% !important;
+}
+.header-mobile > * {
+    display: table-cell;
+    vertical-align: middle;
+    width: 33.33333333%;
+}
+
+@media (max-width: 991px) {
+    .header-logo svg {
+        width: 130px;
+    }
+    .header .header-mobile .header-mobile-left .left-menu {
+        padding-right: 0;
+        padding-left: 10px;
+    }
+}

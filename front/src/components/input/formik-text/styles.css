@@ -1,0 +1,5 @@
+.form-field .field-error,
+.form-field label {
+    display: block;
+    text-align: left;
+}

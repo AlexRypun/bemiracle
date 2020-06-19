@@ -1,0 +1,10 @@
+{
+  "name": "bemiracle",
+  "version": "1.0.0",
+  "description": "Natural cosmetics store",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alex Rypun <alex.rypun@gmail.com>",
+  "license": "ISC"
+}

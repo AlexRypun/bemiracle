@@ -1,0 +1,24 @@
+.block-language span.language {
+    display: block;
+    font-size: 15px;
+    line-height: 30px;
+    font-weight: 500;
+    color: #000000;
+    transition: color 0.25s, border-color 0.25s, background-color 0.25s, opacity 0.25s, width 0.25s ease 0s;
+}
+.block-language span.language:hover {
+    text-decoration: none;
+    outline: none;
+    color: #fa8f47;
+    cursor: pointer;
+}
+.block-language span.language.withArrow::after {
+    display: inline-block;
+    vertical-align: top;
+    font-family: 'FontAwesome', sans-serif;
+    content: '\f107';
+    margin-left: 2px;
+}
+.block-language span.language svg {
+    margin: -2px 3px 0 0;
+}
