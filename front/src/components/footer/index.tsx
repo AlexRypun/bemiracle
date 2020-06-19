@@ -13,6 +13,17 @@ const Index: React.FC = () => (
               © Copyright 2020 <Link to="/">Bemiracle</Link>. All Rights Reserved.
             </p>
           </div>
+          <div className="col-md-6">
+            <div className="content-socials">
+              <ul className="socials-list">
+                <li>
+                  <a href="https://www.instagram.com/bemiracle.store" target="_blank" rel="noreferrer">
+                    <i className="fa fa-instagram" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
