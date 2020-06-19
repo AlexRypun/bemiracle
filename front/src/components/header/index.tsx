@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { ReactComponent as Logo } from '../../assets/images/logo.svg';
 import CategoriesList from './components/categories-list';
@@ -11,6 +11,7 @@ import useDetectClick from '../../hooks/use-detect-click';
 import { BrowserContext } from '../../contexts/browser';
 import './styles.css';
 import useRequest from '../../hooks/use-request';
+import useHistoryState from '../../hooks/use-history-state';
 
 enum SubMenus {
   CATEGORIES = 'categories',
@@ -65,11 +66,11 @@ const Header: React.FC = () => {
     }
   }, [getSubMenuContent, subMenuAlias]);
 
-  const history = useHistory();
+  const history = useHistoryState();
   useEffect(() => {
     setMobileMenuOpened(false);
     setSubMenuAlias(null);
-  }, [history.location.key]);
+  }, [history.locationKey]);
 
   const showSubMenu = useCallback((subMenuAlias: SubMenus | null) => (): void => setSubMenuAlias(subMenuAlias), []);
 

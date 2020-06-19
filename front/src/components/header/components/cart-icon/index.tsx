@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Canvas from '../../../canvas';
 import useDetectClick from '../../../../hooks/use-detect-click';
 import CartItem from './components/cart-item';
-import { useHistory } from 'react-router-dom';
+import useHistoryState from '../../../../hooks/use-history-state';
 import { CartContext } from '../../../../contexts/cart';
 
 import './styles.css';
@@ -32,8 +32,8 @@ const CartIcon: React.FC = () => {
     ref,
     onClickOutside: closeCartCanvas,
   });
-  const history = useHistory();
-  useEffect(() => setOpened(false), [history.location.key]);
+  const history = useHistoryState();
+  useEffect(() => setOpened(false), [history.locationKey]);
 
   return (
     <div className="block-minicart block-dreaming akasha-mini-cart akasha-dropdown cart-icon">

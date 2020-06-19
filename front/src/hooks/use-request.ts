@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
@@ -33,7 +33,7 @@ const useRequest = ({ endpoint, initIsFetching = false }: Args): Response => {
 
       try {
         // @ts-ignore
-        const response = await axios[method].call(axios, ...args);
+        const response = await axios[method](...args);
         result = response.data;
       } catch (e) {
         throw e;
