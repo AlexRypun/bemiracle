@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Breadcrumb } from '../../types/common';
-import useHistoryState from '../../hooks/use-history-state';
 
 type ContextProps = {
   breadcrumbs: Breadcrumb[];
@@ -17,8 +17,11 @@ export const BreadcrumbsContext = React.createContext<ContextProps>(initialValue
 const BreadcrumbsProvider: React.FC<React.PropsWithChildren<React.ReactNode>> = ({ children }) => {
   const [breadcrumbs, setBreadcrumbs] = useState<Breadcrumb[]>([]);
 
-  const history = useHistoryState();
-  useEffect(() => setBreadcrumbs([]), [history.locationKey]);
+  // don't use useHistoryState because of wrong calls order
+  const history = useHistory();
+  useEffect(() => {
+    history.listen(() => setBreadcrumbs([]));
+  }, [history]);
 
   return <BreadcrumbsContext.Provider value={{ breadcrumbs, setBreadcrumbs }}>{children}</BreadcrumbsContext.Provider>;
 };

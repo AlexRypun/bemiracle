@@ -125,7 +125,7 @@ const CategoryPage: React.FC = () => {
   return (
     <div className="category-products">
       {products.total === 0 && !isFetching && !isCategoryFetching ? (
-        <p className="no-data">There is no products</p>
+        <p className="no-data">There are no products</p>
       ) : (
         <Loader isLoading={isFetching || isCategoryFetching} showChildren={products.total > 0}>
           <div className="category-products-control">

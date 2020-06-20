@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Order } from '../../types/orders';
@@ -6,6 +6,7 @@ import OrderTeaser from '../../components/orders/teaser';
 import useRequest from '../../hooks/use-request';
 import { GetManyResponse } from '../../types/common';
 import Loader from '../../components/loader';
+import { BreadcrumbsContext } from '../../contexts/breadcrumbs';
 
 import './styles.css';
 
@@ -27,6 +28,12 @@ const OrdersPage: React.FC = () => {
     };
     fetchData();
   }, [get]);
+
+  const { setBreadcrumbs } = useContext(BreadcrumbsContext);
+  useEffect(() => setBreadcrumbs([{ to: '/', label: t('common.breadcrumbs.home') }, { label: t('orders.header') }]), [
+    setBreadcrumbs,
+    t,
+  ]);
 
   return (
     <div className="orders-page">

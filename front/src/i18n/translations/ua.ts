@@ -50,6 +50,9 @@ const translation = {
   order: {
     title: 'Замовлення #{{id}}',
     titleShort: 'Зам. #{{id}}',
+    detailsTitle: 'Деталі замовлення',
+    productsTitle: 'Продукти',
+    shippingTitle: 'Деталі відправлення',
     status: {
       new: 'Новий',
       sent: 'Відправлений',
@@ -58,6 +61,14 @@ const translation = {
     paymentMethod: {
       cash: 'Готівка',
       oncard: 'На карту',
+    },
+    shippingDetails: {
+      name: "Ім'я",
+      surname: 'Прізвище',
+      city: 'Місто (село)',
+      npDep: 'Відділення "Нова Пошта"',
+      phone: 'Телефон',
+      email: 'Email',
     },
   },
 };

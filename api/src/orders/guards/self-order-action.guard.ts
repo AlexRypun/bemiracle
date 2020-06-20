@@ -18,7 +18,7 @@ export class SelfOrderActionGuard extends AOrGuardGuard implements CanActivate {
 
         const { user, params: { id } } = context.switchToHttp().getRequest();
         const order = await this.ordersService.getOrderById(id);
-        const canActivate = user.id === order.user.id;
+        const canActivate = user.id === order?.user?.id;
 
         return this.nextStep(canActivate, context);
     }

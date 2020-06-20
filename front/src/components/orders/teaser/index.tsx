@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { Order } from '../../../types/orders';
@@ -15,7 +16,9 @@ const OrderTeaser: React.FC<Props> = ({ order }) => {
   const { t } = useTranslation();
   return (
     <tr>
-      <td>{t(`order.title${isMobile ? 'Short' : ''}`, { id: order.id })}</td>
+      <td>
+        <Link to={`/orders/${order.id}`}>{t(`order.title${isMobile ? 'Short' : ''}`, { id: order.id })}</Link>
+      </td>
       <td>{t(`order.status.${order.status}`)}</td>
       <td>${order.price}</td>
       <td className="payment-method">{t(`order.paymentMethod.${order.paymentMethod}`)}</td>

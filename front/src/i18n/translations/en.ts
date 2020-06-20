@@ -50,11 +50,14 @@ const translation = {
     price: 'Price',
     paymentMethod: 'Payment method',
     createdDate: 'Date',
-    noOrders: 'There is no orders',
+    noOrders: 'There are no orders',
   },
   order: {
     title: 'Order #{{id}}',
     titleShort: 'Order #{{id}}',
+    detailsTitle: 'Order details',
+    productsTitle: 'Products',
+    shippingTitle: 'Shipping details',
     status: {
       new: 'New',
       sent: 'Sent',
@@ -63,6 +66,14 @@ const translation = {
     paymentMethod: {
       cash: 'Cash',
       oncard: 'Card',
+    },
+    shippingDetails: {
+      name: 'First name',
+      surname: 'Last name',
+      city: 'City',
+      npDep: 'Nova Poshta Dep',
+      phone: 'Phone',
+      email: 'Email',
     },
   },
 };
