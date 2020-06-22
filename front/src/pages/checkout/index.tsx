@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useMemo } from 'react';
 import { Formik, Field } from 'formik';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import OrderProducts from '../../components/checkout/order-products';
 import PaymentMethods from '../../components/checkout/payment-methods';
@@ -14,6 +15,7 @@ import { CartContext } from '../../contexts/cart';
 import Button from '../../components/button';
 
 import './styles.css';
+import { UserContext } from '../../contexts/user';
 
 const Checkout: React.FC = () => {
   const { products } = useContext(CartContext);
@@ -49,14 +51,18 @@ const Checkout: React.FC = () => {
     [products],
   );
 
+  const { user } = useContext(UserContext);
+
   return (
     <div className="checkout-page">
-      <div className="login-block">
-        Returning customer?&nbsp;
-        <a href="#" className="login">
-          Click here to login
-        </a>
-      </div>
+      {!user && (
+        <div className="login-block">
+          Returning customer?&nbsp;
+          <Link to="/signin" className="login">
+            Click here to login
+          </Link>
+        </div>
+      )}
       <Formik initialValues={initialValues} onSubmit={submitHandler} validationSchema={OrderSchema}>
         {({ handleSubmit }): JSX.Element => (
           <form className="checkout-form" onSubmit={handleSubmit}>

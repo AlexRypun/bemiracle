@@ -10,6 +10,7 @@ import { OrGuards } from '../common/decorators/or-guards.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { GetUser } from '../common/decorators/get-user.decorator';
 import { UpdateUserInterceptor } from './interceptors/update-user.interceptor';
+import { TransformPipe } from './pipes/transform.pipe';
 
 @Controller('users')
 export class UsersController {
@@ -31,7 +32,7 @@ export class UsersController {
     @Patch('/:id')
     updateUser(
         @Param('id', ParseIntPipe) id: number,
-        @Body(ValidationPipe) params: UpdateUserDto,
+        @Body(TransformPipe, ValidationPipe) params: UpdateUserDto,
         @GetUser() user: User
     ): Promise<User> {
         return this.usersService.updateUser(id, params);

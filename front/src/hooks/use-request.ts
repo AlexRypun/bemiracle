@@ -1,7 +1,5 @@
 import { useCallback, useState } from 'react';
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+import { AxiosRequestConfig } from 'axios';
 
 import { AnyObject } from '../types/common';
 import axios from '../services/axios';
@@ -14,11 +12,11 @@ type Response = {
   isFetching: boolean;
   get: <T>(params?: AnyObject) => Promise<T>;
   create: <T>(params: T) => Promise<T>;
+  update: <T>(params: T) => Promise<T>;
 };
 
 const useRequest = ({ endpoint, initIsFetching = false }: Args): Response => {
   const [isFetching, setIsFetching] = useState<boolean>(initIsFetching);
-  const { t } = useTranslation();
 
   const processRequest = useCallback(
     async <T>(method: 'get' | 'post' | 'patch' | 'delete', data: AnyObject, config: AxiosRequestConfig): Promise<T> => {
@@ -59,7 +57,14 @@ const useRequest = ({ endpoint, initIsFetching = false }: Args): Response => {
     [processRequest],
   );
 
-  return { isFetching, get, create };
+  const update = useCallback(
+    <T>(params: T): Promise<T> => {
+      return processRequest('patch', params, {});
+    },
+    [processRequest],
+  );
+
+  return { isFetching, get, create, update };
 };
 
 export default useRequest;

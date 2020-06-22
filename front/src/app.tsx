@@ -17,6 +17,7 @@ import SignIn from './pages/sign-in';
 import SignUp from './pages/sign-up';
 import Orders from './pages/orders';
 import Order from './pages/order';
+import Profile from './pages/profile';
 import BrowserProvider from './contexts/browser';
 import CartProvider from './contexts/cart';
 import BreadcrumbsProvider from './contexts/breadcrumbs';
@@ -50,6 +51,7 @@ const App: React.FC = () => (
                 <Route path="/signup" component={SignUp} />
                 <Route path="/orders/:orderId" component={Order} />
                 <Route path="/orders" component={Orders} />
+                <Route path="/profile" component={Profile} />
               </Switch>
               <ToastContainer limit={4} />
             </div>

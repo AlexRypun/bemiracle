@@ -1,4 +1,4 @@
-import { EntityWithTranslations, LANG, Translation } from './common';
+import { EntityWithTranslations, Translation } from './common';
 import { Category } from './categories';
 
 export interface ProductImage {

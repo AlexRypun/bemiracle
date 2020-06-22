@@ -179,14 +179,13 @@ const Header: React.FC = () => {
           </div>
           <div ref={ref} id="mobile-menu" className={`akasha-menu-clone-wrap ${mobileMenuOpened ? 'open' : ''}`}>
             <div className="akasha-menu-panels-actions-wrap">
-              {subMenuContent ? <a className="akasha-menu-prev-panel" onClick={showSubMenu(null)} /> : null}
-              <a
+              {subMenuContent ? <span className="akasha-menu-prev-panel" onClick={showSubMenu(null)} /> : null}
+              <span
                 className="akasha-menu-close-btn akasha-menu-close-panels"
-                href="#"
                 onClick={(): void => setMobileMenuOpened(false)}
               >
                 x
-              </a>
+              </span>
             </div>
             <div className="akasha-menu-panels">
               <div className="akasha-menu-panel akasha-menu-panel-main">
@@ -195,7 +194,7 @@ const Header: React.FC = () => {
                     <Link to="">Home</Link>
                   </li>
                   <li>
-                    <a className="akasha-menu-next-panel" onClick={showSubMenu(SubMenus.CATEGORIES)} />
+                    <span className="akasha-menu-next-panel" onClick={showSubMenu(SubMenus.CATEGORIES)} />
                     <span className="akasha-menu-item-title" onClick={showSubMenu(SubMenus.CATEGORIES)}>
                       Shop
                     </span>

@@ -17,7 +17,7 @@ const Index: React.FC = () => (
             <div className="content-socials">
               <ul className="socials-list">
                 <li>
-                  <a href="https://www.instagram.com/bemiracle.store" target="_blank" rel="noreferrer">
+                  <a href="https://www.instagram.com/bemiracle.store" target="_blank" rel="noopener noreferrer">
                     <i className="fa fa-instagram" />
                   </a>
                 </li>

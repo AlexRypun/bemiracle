@@ -76,6 +76,20 @@ const translation = {
       email: 'Email',
     },
   },
+  profile: {
+    title: 'My profile',
+    name: 'First name',
+    surname: 'Last name',
+    city: 'City',
+    npDep: 'Nova Poshta Dep',
+    phone: 'Phone',
+    email: 'Email',
+    save: 'Save',
+    helpText: {
+      phone: '+380XXXXXXXXX',
+      npDep: 'digit',
+    },
+  },
 };
 
 export default { translation };

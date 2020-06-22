@@ -48,7 +48,8 @@ export class AuthService {
         if (typeof data !== 'object') {
             throw new UnprocessableEntityException();
         }
-        return this.generateTokensPair(data.id, data);
+        const user = await this.userService.getUserById(data.id);
+        return this.generateTokensPair(user.id, user);
     }
 
     private async generateTokensPair(userId: number, payload: {[key: string]: any}): Promise<IJwtTokens> {

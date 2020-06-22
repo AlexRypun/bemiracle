@@ -1,0 +1,21 @@
+.profile .profile-form {
+    position: relative;
+    background-color: #f6f6f6;
+    padding: 30px;
+}
+.profile .profile-form .buttons {
+    width: 100%;
+    margin-bottom: 0;
+}
+.profile .profile-form .profile-button-save {
+    min-width: 160px;
+}
+
+@media (max-width: 767px) {
+    .profile .profile-form {
+        padding: 15px;
+    }
+    .profile .profile-form .buttons {
+        text-align: center;
+    }
+}

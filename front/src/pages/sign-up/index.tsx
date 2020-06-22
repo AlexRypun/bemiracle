@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useMemo } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { Formik, FormikHelpers } from 'formik';
+import { Formik } from 'formik';
 
 import { UserContext } from '../../contexts/user';
 import useRequest from '../../hooks/use-request';
@@ -19,7 +19,7 @@ const SignUpPage: React.FC = () => {
   const { t } = useTranslation();
   const history = useHistory();
 
-  const initialValues: User = useMemo(
+  const initialValues = useMemo(
     () => ({
       name: '',
       surname: '',
@@ -28,7 +28,7 @@ const SignUpPage: React.FC = () => {
       repeatPassword: '',
       phone: '+380',
       city: '',
-      novaPoshtaDep: null,
+      novaPoshtaDep: '',
     }),
     [],
   );
@@ -36,9 +36,9 @@ const SignUpPage: React.FC = () => {
   const { create } = useRequest({ endpoint: 'auth/signup' });
 
   const submitHandler = useCallback(
-    async (values, { setFieldError }: FormikHelpers<User>) => {
+    async (values, { setFieldError }) => {
       try {
-        await create(values);
+        await create<User>(values);
         toast.success(t('signUp.messages.success'));
         history.push('/');
       } catch (e) {

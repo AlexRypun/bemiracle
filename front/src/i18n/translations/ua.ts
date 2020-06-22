@@ -30,6 +30,11 @@ const translation = {
       hiUser: 'Привіт, {{name}}',
     },
   },
+  signUp: {
+    messages: {
+      success: 'Вітаємо! Тепер Ви можете залогінитись',
+    },
+  },
   userMenu: {
     myProfile: 'Мій профіль',
     myOrders: 'Мої замовлення',
@@ -69,6 +74,20 @@ const translation = {
       npDep: 'Відділення "Нова Пошта"',
       phone: 'Телефон',
       email: 'Email',
+    },
+  },
+  profile: {
+    title: 'Мій профіль',
+    name: "Ім'я",
+    surname: 'Прізвище',
+    city: 'Місто (село)',
+    npDep: 'Відділення "Нова Пошта"',
+    phone: 'Телефон',
+    email: 'Email',
+    save: 'Зберегти',
+    helpText: {
+      phone: '+380XXXXXXXXX',
+      npDep: 'номер',
     },
   },
 };

@@ -1,5 +1,7 @@
 import { AxiosError } from 'axios';
 
+import { AnyObject } from '../types/common';
+
 type FieldErrors = {
   [field: string]: string;
 };
@@ -30,3 +32,6 @@ export const formatDate = (dateStr: string): string => {
         .format(date)
         .replace(/\//g, '.');
 };
+
+export const prepareObjectToFormik = (obj: AnyObject): AnyObject =>
+  Object.fromEntries(Object.entries(obj).map(([key, val]) => [key, val === null ? '' : val]));
