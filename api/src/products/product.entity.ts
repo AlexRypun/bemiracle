@@ -26,6 +26,18 @@ export class Product extends BaseEntity {
     inStock: number;
 
     @Column({
+        type: 'boolean',
+        default: false
+    })
+    isNew: boolean;
+
+    @Column({
+        type: 'boolean',
+        default: false
+    })
+    isTop: boolean;
+
+    @Column({
         type: 'int',
         nullable: true
     })

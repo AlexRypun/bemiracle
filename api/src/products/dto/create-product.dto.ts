@@ -1,5 +1,5 @@
 import { CreateProductTranslationDto } from './create-product-translation.dto';
-import { IsInt, IsOptional, ValidateNested } from 'class-validator';
+import { IsBoolean, IsInt, IsOptional, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateProductCategoryDto } from './create-product-category.dto';
 
@@ -13,6 +13,14 @@ export class CreateProductDto {
 
     @IsInt()
     inStock: number;
+
+    @IsOptional()
+    @IsBoolean()
+    inNew: boolean;
+
+    @IsOptional()
+    @IsBoolean()
+    inTop: boolean;
 
     @ValidateNested()
     @Type(() => CreateProductCategoryDto)

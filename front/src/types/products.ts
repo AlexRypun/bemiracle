@@ -23,6 +23,8 @@ export interface Product extends EntityWithTranslations {
   oldPrice: number | null;
   categoryId: number;
   inStock: number;
+  isNew: boolean;
+  isTop: boolean;
   images: ProductImage[];
   translations: ProductTranslation[];
   category: Category;

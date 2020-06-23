@@ -34,10 +34,22 @@ const ProductTeaser: React.FC<Props> = ({ product }) => {
               height="778"
             />
           </Link>
-          <div className="flash">
-            <span className="onnew">
-              <span className="text">New</span>
-            </span>
+          <div className="labels">
+            {product.isTop && (
+              <span className="top">
+                <span>Top sales</span>
+              </span>
+            )}
+            {product.isNew && (
+              <span className="new">
+                <span>New</span>
+              </span>
+            )}
+            {product.inStock < 1 && (
+              <span className="sold-out">
+                <span>Sold out</span>
+              </span>
+            )}
           </div>
           <div className="group-button">
             {canAddToCart && (
