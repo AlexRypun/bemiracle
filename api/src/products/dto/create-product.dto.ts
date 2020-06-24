@@ -16,11 +16,11 @@ export class CreateProductDto {
 
     @IsOptional()
     @IsBoolean()
-    inNew: boolean;
+    isNew: boolean;
 
     @IsOptional()
     @IsBoolean()
-    inTop: boolean;
+    isTop: boolean;
 
     @ValidateNested()
     @Type(() => CreateProductCategoryDto)

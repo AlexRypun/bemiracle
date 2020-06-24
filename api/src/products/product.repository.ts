@@ -6,6 +6,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { FindProductsDto } from './dto/find-products.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { GetManyResponse } from '../common/interfaces';
+import TypeOrmHelper from '../common/helpers/typeorm.helper';
 
 @EntityRepository(Product)
 export class ProductRepository extends Repository<Product> {
@@ -46,15 +47,7 @@ export class ProductRepository extends Repository<Product> {
         }
         let orderBy: OrderByCondition = { 'product.id': 'ASC' };
         if (filters.orderBy) {
-            let field = filters.orderBy;
-            let direction: ('ASC' | 'DESC') = 'ASC';
-            if (filters.orderBy.startsWith('-')) {
-                field = field.slice(1);
-                direction = 'DESC';
-            }
-            orderBy = {
-                [field.indexOf('.') === -1 ? `product.${field}` : field]: direction
-            };
+            orderBy = TypeOrmHelper.formOrderBy(filters.orderBy, 'product');
             delete filters.orderBy;
         }
         if (filters.translation) {

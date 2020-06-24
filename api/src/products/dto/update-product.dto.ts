@@ -18,11 +18,11 @@ export class UpdateProductDto {
 
     @IsOptional()
     @IsBoolean()
-    inNew: boolean;
+    isNew: boolean;
 
     @IsOptional()
     @IsBoolean()
-    inTop: boolean;
+    isTop: boolean;
 
     @IsOptional()
     @ValidateNested()

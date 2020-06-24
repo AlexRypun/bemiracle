@@ -124,6 +124,7 @@ const CategoryPage: React.FC = () => {
 
   return (
     <div className="category-products">
+      <h1 className="page-title">{categoryTranslation.name}</h1>
       {products.total === 0 && !isFetching && !isCategoryFetching ? (
         <p className="no-data">There are no products</p>
       ) : (

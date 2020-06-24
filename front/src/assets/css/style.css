@@ -4435,7 +4435,7 @@ a.backtotop:hover::before {
 	font-weight: 600;
 	position: relative;
 	padding-bottom: 10px;
-	margin-bottom: 15px;
+	margin-bottom: 25px;
 }
 .page-title::before {
 	content: '';
@@ -9896,6 +9896,10 @@ body.error404 .header {
 	}
 	.main-container.error-404 .subtitle {
 		font-size: 15px;
+	}
+	.page-title {
+		font-size: 28px;
+		margin-bottom: 20px;
 	}
 }
 /*===============================================================

@@ -1,4 +1,4 @@
-import { IsInt, IsOptional, IsString, Length, ValidateNested } from 'class-validator';
+import { IsBoolean, IsInt, IsOptional, IsString, Length, ValidateNested } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 import { FindProductsTranslationDto } from './find-products-translation.dto';
 
@@ -7,6 +7,14 @@ export class FindProductsDto {
     @IsInt()
     @Transform(Number)
     price?: number;
+
+    @IsOptional()
+    @IsBoolean()
+    isNew?: boolean;
+
+    @IsOptional()
+    @IsBoolean()
+    isTop?: boolean;
 
     @IsOptional()
     @IsInt()

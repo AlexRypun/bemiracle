@@ -90,6 +90,9 @@ const translation = {
       npDep: 'номер',
     },
   },
+  home: {
+    title: 'Популярные продукты',
+  },
 };
 
 export default { translation };

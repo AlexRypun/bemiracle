@@ -90,6 +90,9 @@ const translation = {
       npDep: 'digit',
     },
   },
+  home: {
+    title: 'Popular products',
+  },
 };
 
 export default { translation };

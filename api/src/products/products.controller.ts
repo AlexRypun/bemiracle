@@ -15,18 +15,20 @@ import {
     UsePipes,
     ValidationPipe
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
+
 import { ProductsService } from './products.service';
 import { Product } from './product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { FindProductsDto } from './dto/find-products.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { AllowedRoles } from '../common/decorators/allowed-roles.decorator';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { Response } from 'express';
 import { ImageSizeEnum } from './image-size.enum';
 import { GetManyResponse } from '../common/interfaces';
+import { FindTopProductsDto } from './dto/find-top-products.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -37,6 +39,12 @@ export class ProductsController {
     @UsePipes(ValidationPipe)
     getAllProducts(@Query() filters: FindProductsDto): Promise<GetManyResponse<Product>> {
         return this.productsService.getAllProducts(filters);
+    }
+
+    @Get('/top')
+    @UsePipes(ValidationPipe)
+    getTopProducts(@Query() filters: FindTopProductsDto): Promise<GetManyResponse<Product>> {
+        return this.productsService.getTopProducts(filters);
     }
 
     @Get('/:id')

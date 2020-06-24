@@ -14,6 +14,9 @@ import { FilesService } from '../files/files.service';
 import { ProductImageRepository } from './productImage.repository';
 import { ImageSizeEnum } from './image-size.enum';
 import { GetManyResponse } from '../common/interfaces';
+import { FindTopProductsDto } from './dto/find-top-products.dto';
+import TypeOrmHelper from '../common/helpers/typeorm.helper';
+import { OrderByCondition } from 'typeorm';
 
 @Injectable()
 export class ProductsService {
@@ -28,6 +31,27 @@ export class ProductsService {
     }
     getAllProducts(filters: FindProductsDto): Promise<GetManyResponse<Product>> {
         return this.productRepository.findProducts(filters);
+    }
+    async getTopProducts(filters: FindTopProductsDto): Promise<GetManyResponse<Product>> {
+        const query = this.productRepository
+          .createQueryBuilder('product')
+          .innerJoinAndSelect('product.translations', 'translation')
+          .leftJoinAndSelect('product.images', 'image')
+          .where('product.isNew = true')
+          .orWhere('product.isTop = true');
+        if (filters.take) {
+            query.take(filters.take);
+        }
+        if (filters.skip) {
+            query.skip(filters.skip);
+        }
+        let orderBy: OrderByCondition = { 'product.id': 'DESC' };
+        if (filters.orderBy) {
+            orderBy = TypeOrmHelper.formOrderBy(filters.orderBy, 'product');
+        }
+        query.orderBy(orderBy);
+        const [products, total] = await query.getManyAndCount();
+        return { data: products, total };
     }
     find(conditions: FindManyOptions<Product>): Promise<Product[]> {
         return this.productRepository.find(conditions);
