@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState, useRef } from 'react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 
 import ProductsList from '../../components/products/list';
@@ -69,6 +69,14 @@ const CategoryPage: React.FC = () => {
     ],
     [],
   );
+
+  const componentIsMounted = useRef(true);
+  useEffect(() => {
+    return (): void => {
+      componentIsMounted.current = false;
+    };
+  }, []);
+
   const { isFetching, get } = useRequest({ endpoint: 'products' });
   useEffect(() => {
     setProducts(initialState);
@@ -84,10 +92,12 @@ const CategoryPage: React.FC = () => {
           orderBy: filters.sortBy,
         });
         const { data: products = [], total = 0 } = response || {};
-        setProducts({
-          products,
-          total,
-        });
+        if (componentIsMounted.current) {
+          setProducts({
+            products,
+            total,
+          });
+        }
       } catch (e) {
         console.error(e);
       }

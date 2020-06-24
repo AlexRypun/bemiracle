@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AxiosRequestConfig } from 'axios';
 
 import { AnyObject } from '../types/common';
@@ -18,6 +18,13 @@ type Response = {
 const useRequest = ({ endpoint, initIsFetching = false }: Args): Response => {
   const [isFetching, setIsFetching] = useState<boolean>(initIsFetching);
 
+  const componentIsMounted = useRef(true);
+  useEffect(() => {
+    return (): void => {
+      componentIsMounted.current = false;
+    };
+  }, []);
+
   const processRequest = useCallback(
     async <T>(method: 'get' | 'post' | 'patch' | 'delete', data: AnyObject, config: AxiosRequestConfig): Promise<T> => {
       setIsFetching(true);
@@ -36,7 +43,9 @@ const useRequest = ({ endpoint, initIsFetching = false }: Args): Response => {
       } catch (e) {
         throw e;
       } finally {
-        setIsFetching(false);
+        if (componentIsMounted.current) {
+          setIsFetching(false);
+        }
       }
       return result;
     },
