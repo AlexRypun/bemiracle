@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 import { refreshTokens } from './auth';
 
@@ -7,14 +7,16 @@ const apiClient = axios.create({
   responseType: 'json',
 });
 
+const setAuthHeader = (config: AxiosRequestConfig): AxiosRequestConfig => {
+  const accessToken = localStorage.getItem('accessToken');
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+};
+
 apiClient.interceptors.request.use(
-  config => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
-    }
-    return config;
-  },
+  config => setAuthHeader(config),
   error => Promise.reject(error),
 );
 
@@ -26,7 +28,7 @@ apiClient.interceptors.response.use(
     if (error.response && error.response.status === 401 && error.config.url !== 'auth/signin') {
       const success = await refreshTokens();
       if (success) {
-        return axios.request(error.config);
+        return axios.request(setAuthHeader(error.config));
       }
     }
     return Promise.reject(error);
