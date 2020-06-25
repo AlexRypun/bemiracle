@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 
 import Products from '../../components/cart/products';
 import { CartContext } from '../../contexts/cart';
+import { BreadcrumbsContext } from '../../contexts/breadcrumbs';
+import useFormat from '../../hooks/use-format';
 
 import './styles.css';
-import { BreadcrumbsContext } from '../../contexts/breadcrumbs';
 
 const Cart: React.FC = () => {
   const { products } = useContext(CartContext);
@@ -19,6 +20,8 @@ const Cart: React.FC = () => {
     t,
   ]);
 
+  const { formatPrice } = useFormat();
+
   return (
     <div className="cart-page">
       <h1 className="page-title">{t('cart.title')}</h1>
@@ -29,7 +32,7 @@ const Cart: React.FC = () => {
           <tbody>
             <tr>
               <th>Total</th>
-              <td>${total}</td>
+              <td>{formatPrice(total)}</td>
             </tr>
           </tbody>
         </table>

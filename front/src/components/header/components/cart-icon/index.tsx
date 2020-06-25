@@ -6,6 +6,7 @@ import useDetectClick from '../../../../hooks/use-detect-click';
 import CartItem from './components/cart-item';
 import useHistoryState from '../../../../hooks/use-history-state';
 import { CartContext } from '../../../../contexts/cart';
+import useFormat from '../../../../hooks/use-format';
 
 import './styles.css';
 
@@ -35,6 +36,8 @@ const CartIcon: React.FC = () => {
   const history = useHistoryState();
   useEffect(() => setOpened(false), [history.locationKey]);
 
+  const { formatPrice } = useFormat();
+
   return (
     <div className="block-minicart block-dreaming akasha-mini-cart akasha-dropdown cart-icon">
       <div className="shopcart-dropdown block-cart-link" onClick={(): void => setOpened(true)}>
@@ -56,7 +59,7 @@ const CartIcon: React.FC = () => {
             </ul>
             <p className="akasha-mini-cart__total total">
               <strong>Subtotal:</strong>
-              <span className="akasha-Price-amount amount">${total}</span>
+              <span className="akasha-Price-amount amount">{formatPrice(total)}</span>
             </p>
             <p className="akasha-mini-cart__buttons buttons">
               <Link to="/cart" className="button akasha-forward">

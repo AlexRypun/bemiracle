@@ -9,6 +9,7 @@ import { CartContext } from '../../../contexts/cart';
 import InputNumber from '../../input/number';
 import useEntityTranslation from '../../../hooks/use-entity-translation';
 import { CategoryTranslation } from '../../../types/categories';
+import useFormat from '../../../hooks/use-format';
 
 import './styles.css';
 
@@ -69,6 +70,8 @@ const ProductView: React.FC<Props> = ({ product }) => {
     const imgQty = product ? product.images.length : 0;
     return imgQty < 2 ? 1 : imgQty === 2 ? 2 : 3;
   }, [product]);
+
+  const { formatPrice } = useFormat();
 
   return (
     <div className="product-view col-md-12">
@@ -152,7 +155,7 @@ const ProductView: React.FC<Props> = ({ product }) => {
               )}
             </div>
             <h1 className="product-title">{translation.name}</h1>
-            <p className="price">${product.price}</p>
+            <p className="price">{formatPrice(product.price)}</p>
             <p className={`stock ${product.inStock > 0 ? 'in' : 'out'}-stock`}>
               {t('product.view.availability')}:&nbsp;
               <span>{t(`product.view.${product.inStock > 0 ? 'available' : 'notAvailable'}`)}</span>

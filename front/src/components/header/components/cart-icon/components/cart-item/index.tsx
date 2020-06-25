@@ -5,6 +5,7 @@ import { IMG_SIZE, ProductTranslation } from '../../../../../../types/products';
 import { OrderProduct } from '../../../../../../types/orders';
 import { getMainImgSrc } from '../../../../../../utils/products';
 import useEntityTranslation from '../../../../../../hooks/use-entity-translation';
+import useFormat from '../../../../../../hooks/use-format';
 
 import './styles.css';
 
@@ -14,6 +15,8 @@ type Props = {
 };
 const CartItem: React.FC<Props> = ({ product, removeFromCart }) => {
   const translation = useEntityTranslation<ProductTranslation>(product.product);
+
+  const { formatPrice } = useFormat();
 
   return (
     <li className="mini_cart_item">
@@ -25,8 +28,7 @@ const CartItem: React.FC<Props> = ({ product, removeFromCart }) => {
         {translation.name}
       </Link>
       <span className="quantity">
-        {product.quantity} × <span>$</span>
-        {product.price}
+        {product.quantity} × {formatPrice(product.price)}
       </span>
     </li>
   );

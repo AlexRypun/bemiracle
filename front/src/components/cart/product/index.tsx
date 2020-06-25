@@ -7,6 +7,7 @@ import InputNumber from '../../input/number';
 import { CartContext } from '../../../contexts/cart';
 import useEntityTranslation from '../../../hooks/use-entity-translation';
 import { OrderProduct } from '../../../types/orders';
+import useFormat from '../../../hooks/use-format';
 
 import './styles.css';
 
@@ -34,6 +35,8 @@ const Product: React.FC<Props> = ({ product }) => {
 
   const translation = useEntityTranslation<ProductTranslation>(product.product);
 
+  const { formatPrice } = useFormat();
+
   return (
     <tr className="cart-product-row">
       <td className="remove">
@@ -49,11 +52,11 @@ const Product: React.FC<Props> = ({ product }) => {
       <td className="name">
         <Link to={`/products/${product.id}`}>{translation.name}</Link>
       </td>
-      <td className="price">${product.price}</td>
+      <td className="price">{formatPrice(product.price)}</td>
       <td className="quantity">
         <InputNumber value={product.quantity} changeHandler={onQuantityChange} />
       </td>
-      <td className="subtotal">${product.quantity * product.price}</td>
+      <td className="subtotal">{formatPrice(product.quantity * product.price)}</td>
     </tr>
   );
 };

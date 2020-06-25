@@ -5,6 +5,7 @@ import { IMG_SIZE, Product, ProductTranslation } from '../../../types/products';
 import { getMainImgSrc } from '../../../utils/products';
 import { CartContext } from '../../../contexts/cart';
 import useEntityTranslation from '../../../hooks/use-entity-translation';
+import useFormat from '../../../hooks/use-format';
 
 import './styles.css';
 
@@ -20,6 +21,8 @@ const ProductTeaser: React.FC<Props> = ({ product }) => {
   ]);
 
   const translation = useEntityTranslation<ProductTranslation>(product);
+
+  const { formatPrice } = useFormat();
 
   return (
     <li className="product-teaser col-bg-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-ts-6">
@@ -63,7 +66,7 @@ const ProductTeaser: React.FC<Props> = ({ product }) => {
           <h3 className="product-name">
             <Link to={`/products/${product.id}`}>{translation.name}</Link>
           </h3>
-          <span className="price">${product.price}</span>
+          <span className="price">{formatPrice(product.price)}</span>
         </div>
       </div>
     </li>

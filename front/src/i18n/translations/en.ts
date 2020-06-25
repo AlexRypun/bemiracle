@@ -2,6 +2,7 @@ const translation = {
   common: {
     yes: 'Yes',
     no: 'No',
+    currencyUa: 'hrn',
     messages: {
       smthWrong: 'Oops! Something went wrong!',
     },

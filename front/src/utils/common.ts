@@ -20,18 +20,5 @@ export const extractFieldErrors = (e: AxiosError): FieldErrors => {
   return response;
 };
 
-export const formatDate = (dateStr: string): string => {
-  const date = new Date(dateStr);
-  return isNaN(date.getTime())
-    ? ''
-    : new Intl.DateTimeFormat('en-GB', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-      })
-        .format(date)
-        .replace(/\//g, '.');
-};
-
 export const prepareObjectToFormik = (obj: AnyObject): AnyObject =>
   Object.fromEntries(Object.entries(obj).map(([key, val]) => [key, val === null ? '' : val]));

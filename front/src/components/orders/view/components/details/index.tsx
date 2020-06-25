@@ -2,13 +2,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Order } from '../../../../../types/orders';
-import { formatDate } from '../../../../../utils/common';
+import useFormat from '../../../../../hooks/use-format';
 
 type Props = {
   order: Order;
 };
 const OrderDetails: React.FC<Props> = ({ order }) => {
   const { t } = useTranslation();
+  const { formatDate, formatPrice } = useFormat();
 
   return (
     <table>
@@ -19,7 +20,7 @@ const OrderDetails: React.FC<Props> = ({ order }) => {
         </tr>
         <tr>
           <th>{t('orders.price')}:</th>
-          <td>${order.price}</td>
+          <td>{formatPrice(order.price)}</td>
         </tr>
         <tr>
           <th>{t('orders.paymentMethod')}:</th>
