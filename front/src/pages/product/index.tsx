@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import ProductView from '../../components/products/view';
@@ -15,13 +15,19 @@ const ProductPage: React.FC = () => {
   const match = useRouteMatch<{ productId: string }>();
   const endpoint = useMemo(() => `products/${match.params.productId}`, [match]);
   const { isFetching, get } = useRequest({ endpoint, initIsFetching: true });
+  const history = useHistory();
+
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const response = await get<Product>();
-      setProduct(response);
+      try {
+        const response = await get<Product>();
+        setProduct(response);
+      } catch (e) {
+        history.push('/');
+      }
     };
     fetchData();
-  }, [get]);
+  }, [get, history]);
 
   const { setBreadcrumbs } = useContext(BreadcrumbsContext);
   const { t } = useTranslation();
