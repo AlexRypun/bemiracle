@@ -100,6 +100,9 @@ const translation = {
   aboutUs: {
     title: 'О нас',
   },
+  delivery: {
+    title: 'Оплата и доставка',
+  },
 };
 
 export default { translation };
