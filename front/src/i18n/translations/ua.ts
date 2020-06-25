@@ -22,6 +22,7 @@ const translation = {
     },
   },
   checkout: {
+    title: 'Оформлення замовлення',
     placeOrder: 'Замовити',
   },
   signIn: {
@@ -92,6 +93,12 @@ const translation = {
   },
   home: {
     title: 'Популярні продукти',
+  },
+  cart: {
+    title: 'Кошик',
+  },
+  aboutUs: {
+    title: 'Про нас',
   },
 };
 

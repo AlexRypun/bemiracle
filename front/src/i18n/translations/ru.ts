@@ -22,6 +22,7 @@ const translation = {
     },
   },
   checkout: {
+    title: 'Оформление заказа',
     placeOrder: 'Заказать',
   },
   signIn: {
@@ -92,6 +93,12 @@ const translation = {
   },
   home: {
     title: 'Популярные продукты',
+  },
+  cart: {
+    title: 'Корзина',
+  },
+  aboutUs: {
+    title: 'О нас',
   },
 };
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import { Formik, Field } from 'formik';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -16,10 +16,16 @@ import Button from '../../components/button';
 
 import './styles.css';
 import { UserContext } from '../../contexts/user';
+import { BreadcrumbsContext } from '../../contexts/breadcrumbs';
 
 const Checkout: React.FC = () => {
   const { products } = useContext(CartContext);
   const { t } = useTranslation();
+  const { setBreadcrumbs } = useContext(BreadcrumbsContext);
+  useEffect(() => setBreadcrumbs([{ to: '/', label: t('common.breadcrumbs.home') }, { label: t('checkout.title') }]), [
+    setBreadcrumbs,
+    t,
+  ]);
 
   const { create } = useRequest({ endpoint: 'orders' });
 
@@ -55,6 +61,7 @@ const Checkout: React.FC = () => {
 
   return (
     <div className="checkout-page">
+      <h1 className="page-title">{t('checkout.title')}</h1>
       {!user && (
         <div className="login-block">
           Returning customer?&nbsp;

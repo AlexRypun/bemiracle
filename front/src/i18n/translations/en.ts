@@ -22,6 +22,7 @@ const translation = {
     },
   },
   checkout: {
+    title: 'Checkout',
     placeOrder: 'Place order',
   },
   signIn: {
@@ -92,6 +93,12 @@ const translation = {
   },
   home: {
     title: 'Popular products',
+  },
+  cart: {
+    title: 'Cart',
+  },
+  aboutUs: {
+    title: 'About us',
   },
 };
 
