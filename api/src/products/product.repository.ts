@@ -41,6 +41,13 @@ export class ProductRepository extends Repository<Product> {
             query.take(filters.take);
             delete filters.take;
         }
+        if (filters.categoryId && filters.withNestedCategories) {
+            query
+              .leftJoin('product.category', 'category')
+              .andWhere('category.id = :catId OR category.parentId = :catId', { catId: filters.categoryId });
+            delete filters.categoryId;
+            delete filters.withNestedCategories;
+        }
         if (filters.skip) {
             query.skip(filters.skip);
             delete filters.skip;

@@ -23,6 +23,10 @@ export interface EntityWithTranslations {
   translations: Array<Translation>;
 }
 
+export type EntityWithCurrentTranslation<K extends EntityWithTranslations, T extends Translation> = K & {
+  currentTranslation: T;
+};
+
 export interface Breadcrumb {
   label: string;
   to?: string;

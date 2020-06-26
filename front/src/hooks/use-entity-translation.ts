@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { AnyObject, EntityWithTranslations, LANG, Translation } from '../types/common';
+import { AnyObject, EntityWithCurrentTranslation, EntityWithTranslations, LANG, Translation } from '../types/common';
 
 const findTranslation = <T extends Translation>(entity: EntityWithTranslations, currentLang: LANG): T => {
   const translation = entity.translations.find(({ lang }) => lang === currentLang);
@@ -25,7 +25,7 @@ export default function useEntityTranslation<T extends Translation>(entity: Enti
 
 export const useEntitiesTranslations = <K extends EntityWithTranslations, T extends Translation>(
   entities: K[],
-): Array<K & { currentTranslation: T }> => {
+): Array<EntityWithCurrentTranslation<K, T>> => {
   const { i18n } = useTranslation();
 
   return useMemo(

@@ -16,7 +16,7 @@ export class CategoriesService {
         return this.categoryRepository.getAllCategories(filters);
     }
     async getCategoryById(id: number): Promise<Category> {
-        const category = await this.categoryRepository.findOne(id, { relations: ['translations'] });
+        const category = await this.categoryRepository.findOne(id, { relations: ['translations', 'parent', 'parent.translations'] });
         if (category) {
             return category;
         }

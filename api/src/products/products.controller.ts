@@ -29,6 +29,7 @@ import { AllowedRoles } from '../common/decorators/allowed-roles.decorator';
 import { ImageSizeEnum } from './image-size.enum';
 import { GetManyResponse } from '../common/interfaces';
 import { FindTopProductsDto } from './dto/find-top-products.dto';
+import { TransformPipe } from './pipes/transform.pipe';
 
 @Controller('products')
 export class ProductsController {
@@ -36,7 +37,7 @@ export class ProductsController {
     }
 
     @Get()
-    @UsePipes(ValidationPipe)
+    @UsePipes(TransformPipe, ValidationPipe)
     getAllProducts(@Query() filters: FindProductsDto): Promise<GetManyResponse<Product>> {
         return this.productsService.getAllProducts(filters);
     }

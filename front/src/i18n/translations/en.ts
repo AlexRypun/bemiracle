@@ -10,6 +10,11 @@ const translation = {
       home: 'Home',
     },
   },
+  menu: {
+    home: 'Home',
+    delivery: 'Payments and delivery',
+    aboutUs: 'About us',
+  },
   product: {
     view: {
       availability: 'Availability',

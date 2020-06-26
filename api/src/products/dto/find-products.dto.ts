@@ -3,48 +3,52 @@ import { Transform, Type } from 'class-transformer';
 import { FindProductsTranslationDto } from './find-products-translation.dto';
 
 export class FindProductsDto {
-    @IsOptional()
-    @IsInt()
-    @Transform(Number)
-    price?: number;
+  @IsOptional()
+  @IsInt()
+  @Transform(Number)
+  price?: number;
 
-    @IsOptional()
-    @IsBoolean()
-    isNew?: boolean;
+  @IsOptional()
+  @IsBoolean()
+  isNew?: boolean;
 
-    @IsOptional()
-    @IsBoolean()
-    isTop?: boolean;
+  @IsOptional()
+  @IsBoolean()
+  isTop?: boolean;
 
-    @IsOptional()
-    @IsInt()
-    @Transform(Number)
-    categoryId?: number;
+  @IsOptional()
+  @IsInt()
+  @Transform(Number)
+  categoryId?: number;
 
-    @IsOptional()
-    @IsInt()
-    @Transform(Number)
-    take?: number;
+  @IsOptional()
+  @IsBoolean()
+  withNestedCategories?: boolean;
 
-    @IsOptional()
-    @IsInt()
-    @Transform(Number)
-    skip?: number;
+  @IsOptional()
+  @IsInt()
+  @Transform(Number)
+  take?: number;
 
-    @IsOptional()
-    @IsString()
-    orderBy?: string;
+  @IsOptional()
+  @IsInt()
+  @Transform(Number)
+  skip?: number;
 
-    @IsOptional()
-    @Length(1, 20)
-    search?: string;
+  @IsOptional()
+  @IsString()
+  orderBy?: string;
 
-    @IsOptional()
-    @IsString()
-    select?: string;
+  @IsOptional()
+  @Length(1, 20)
+  search?: string;
 
-    @IsOptional()
-    @ValidateNested()
-    @Type(() => FindProductsTranslationDto)
-    translation?: FindProductsTranslationDto;
+  @IsOptional()
+  @IsString()
+  select?: string;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => FindProductsTranslationDto)
+  translation?: FindProductsTranslationDto;
 }

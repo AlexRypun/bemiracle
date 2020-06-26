@@ -8,4 +8,7 @@ export interface CategoryTranslation extends Translation {
 export interface Category extends EntityWithTranslations {
   id: number;
   translations: CategoryTranslation[];
+  parentId: number | null;
+  parent?: Category | null;
+  children?: Category[];
 }

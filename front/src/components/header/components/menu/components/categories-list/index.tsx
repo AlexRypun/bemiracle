@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Category, CategoryTranslation } from '../../../../types/categories';
-import { useEntitiesTranslations } from '../../../../hooks/use-entity-translation';
+import { Category, CategoryTranslation } from '../../../../../../types/categories';
+import { useEntitiesTranslations } from '../../../../../../hooks/use-entity-translation';
 
 import './styles.css';
 

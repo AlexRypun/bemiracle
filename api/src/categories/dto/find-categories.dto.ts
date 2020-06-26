@@ -1,4 +1,4 @@
-import { IsInt, IsOptional, IsString, Length, ValidateNested } from 'class-validator';
+import { IsBoolean, IsInt, IsOptional, IsString, Length, ValidateNested } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 import { FindCategoryTranslationDto } from './find-category-translation.dto';
 
@@ -12,6 +12,11 @@ export class FindCategoriesDto {
     @IsInt()
     @Transform(Number)
     parentId?: number;
+
+    @IsOptional()
+    @IsBoolean()
+    @Transform(val => val === '1')
+    root?: boolean;
 
     @IsOptional()
     @IsInt()

@@ -4,7 +4,7 @@ import { useRouteMatch, useHistory } from 'react-router-dom';
 import ProductsList from '../../components/products/list';
 import constants from '../../configs/constants';
 import useRequest from '../../hooks/use-request';
-import { GetManyResponse } from '../../types/common';
+import { Breadcrumb, GetManyResponse } from '../../types/common';
 import { Product } from '../../types/products';
 import SelectBox from '../../components/selectbox';
 import Pagination from '../../components/pagination';
@@ -87,6 +87,7 @@ const CategoryPage: React.FC = () => {
       try {
         const response = await get<GetManyResponse<Product>>({
           categoryId: match.params.categoryId,
+          withNestedCategories: 1,
           take: filters.perPage,
           skip: (filters.page - 1) * filters.perPage,
           orderBy: filters.sortBy,
@@ -125,12 +126,19 @@ const CategoryPage: React.FC = () => {
   const { setBreadcrumbs } = useContext(BreadcrumbsContext);
   const { t } = useTranslation();
   const categoryTranslation = useEntityTranslation<CategoryTranslation>(category);
+  const parentCategoryTranslation = useEntityTranslation<CategoryTranslation>(category?.parent || null);
 
   useEffect(() => {
     if (category) {
-      setBreadcrumbs([{ to: '/', label: t('common.breadcrumbs.home') }, { label: categoryTranslation.name }]);
+      const breadcrumbs: Breadcrumb[] = [{ to: '/', label: t('common.breadcrumbs.home') }];
+      if (category.parent) {
+        breadcrumbs.push({ to: `/category/${category.parent.id}`, label: parentCategoryTranslation.name });
+      }
+      breadcrumbs.push({ label: categoryTranslation.name });
+
+      setBreadcrumbs(breadcrumbs);
     }
-  }, [category, categoryTranslation, setBreadcrumbs, t]);
+  }, [category, categoryTranslation, parentCategoryTranslation, setBreadcrumbs, t]);
 
   return (
     <div className="category-products">

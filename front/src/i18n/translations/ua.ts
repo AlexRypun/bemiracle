@@ -10,6 +10,11 @@ const translation = {
       home: 'Головна',
     },
   },
+  menu: {
+    home: 'Головна',
+    delivery: 'Оплата і доставка',
+    aboutUs: 'Про нас',
+  },
   product: {
     view: {
       availability: 'Наявність',
