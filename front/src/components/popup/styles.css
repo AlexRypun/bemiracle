@@ -1,0 +1,24 @@
+.custom-popup-content .inner-content {
+    padding: 15px;
+    color: black;
+    font-size: 16px;
+}
+.custom-popup-content .inner-content > .close-popup {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 2px 5px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 24px;
+    background: #fff;
+    border-radius: 18px;
+    border: 1px solid #cfcece;
+}
+
+@media(max-width: 991px) {
+    .custom-popup-content {
+        width: 90% !important;
+    }
+}

@@ -1,10 +1,9 @@
-label.input-checkbox-label span {
+label.input-checkbox-label span.label {
     position: relative;
     font-size: 18px;
-    color: #000;
     padding-left: 26px;
 }
-label.input-checkbox-label span::before {
+label.input-checkbox-label span.label::before {
     content: "";
     display: inline-block;
     width: 17px;
@@ -18,10 +17,10 @@ label.input-checkbox-label span::before {
 label.input-checkbox-label input {
     display: none;
 }
-label.input-checkbox-label input.input-checkbox:checked + span::before {
+label.input-checkbox-label input.input-checkbox:checked + span.label::before {
     background-color: #fa8f47;
 }
-label.input-checkbox-label input.input-checkbox:checked + span::after {
+label.input-checkbox-label input.input-checkbox:checked + span.label::after {
     content: "";
     display: inline-block;
     width: 5px;

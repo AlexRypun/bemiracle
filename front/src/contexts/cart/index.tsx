@@ -9,12 +9,14 @@ type ContextProps = {
   alreadyInCart: AlreadyInCartF;
   addToCart: (product: Product, qty: number) => void;
   removeFromCart: (id: number, qty?: number) => void;
+  clearCart: () => void;
 };
 const initialValue = {
   products: [],
   alreadyInCart: (): number => 0,
   addToCart: (): void => {},
   removeFromCart: (): void => {},
+  clearCart: (): void => {},
 };
 
 export const CartContext = React.createContext<ContextProps>(initialValue);
@@ -77,8 +79,12 @@ const CartProvider: React.FC<React.PropsWithChildren<React.ReactNode>> = ({ chil
     [getStoredCartProducts],
   );
 
+  const clearCart = useCallback((): void => {
+    setProducts([]);
+  }, []);
+
   return (
-    <CartContext.Provider value={{ products, alreadyInCart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ products, alreadyInCart, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );

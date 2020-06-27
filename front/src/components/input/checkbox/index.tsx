@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useCallback } from 'react';
+import { FieldInputProps } from 'formik';
 
 import './styles.css';
-import { FieldInputProps } from 'formik';
 
 type Props = {
   id: string;
@@ -9,10 +9,11 @@ type Props = {
   value: string | number;
   onChange: (value: string) => void;
   checked?: boolean;
-  label?: string;
+  label?: React.ReactNode | string;
   field?: FieldInputProps<string>;
+  className?: string;
 };
-const Checkbox: React.FC<Props> = ({ id, name, value, onChange, checked = false, label, field }) => {
+const Checkbox: React.FC<Props> = ({ id, name, value, onChange, checked = false, label, field, className }) => {
   const changeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       if (field && field.onChange) {
@@ -24,7 +25,7 @@ const Checkbox: React.FC<Props> = ({ id, name, value, onChange, checked = false,
   );
 
   return (
-    <label className="input-checkbox-label">
+    <label className={`input-checkbox-label ${className || ''}`}>
       <input
         id={id}
         name={name}
@@ -35,7 +36,7 @@ const Checkbox: React.FC<Props> = ({ id, name, value, onChange, checked = false,
         {...field}
         onChange={changeHandler}
       />
-      <span>{label}</span>
+      <span className="label">{label}</span>
     </label>
   );
 };

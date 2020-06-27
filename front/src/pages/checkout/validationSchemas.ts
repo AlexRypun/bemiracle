@@ -7,4 +7,5 @@ export const OrderSchema = Yup.object().shape({
   customerNovaPoshtaDep: Yup.number().typeError('Must be a number').required('Required'),
   customerPhone: Yup.string().max(50, 'Too Long!').required('Required'),
   customerEmail: Yup.string().email('Invalid email'),
+  agreePrivacyPolicy: Yup.boolean().oneOf([true], 'Required'),
 });

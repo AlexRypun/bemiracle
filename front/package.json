@@ -27,6 +27,7 @@
     "react-scripts": "^3.4.1",
     "react-slick": "^0.26.1",
     "react-toastify": "^6.0.5",
+    "reactjs-popup": "^1.5.0",
     "typescript": "^3.9.5",
     "yup": "^0.29.1"
   },

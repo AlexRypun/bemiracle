@@ -1,25 +1,30 @@
-import React, { useCallback, useContext, useEffect, useMemo } from 'react';
+import React, { SyntheticEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { Formik, Field } from 'formik';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import OrderProducts from '../../components/checkout/order-products';
 import PaymentMethods from '../../components/checkout/payment-methods';
 import Checkbox from '../../components/input/checkbox';
+import FormikCheckbox from '../../components/input/formik-checkbox';
 import Input from '../../components/input/formik-text';
-import { PAYMENT_METHOD } from '../../types/orders';
+import { Order, PAYMENT_METHOD } from '../../types/orders';
 import { OrderSchema } from './validationSchemas';
 import useRequest from '../../hooks/use-request';
 import { CartContext } from '../../contexts/cart';
 import Button from '../../components/button';
-
-import './styles.css';
 import { UserContext } from '../../contexts/user';
 import { BreadcrumbsContext } from '../../contexts/breadcrumbs';
+import Popup from '../../components/popup';
+import { prepareObjectToFormik } from '../../utils/common';
+
+import './styles.css';
 
 const Checkout: React.FC = () => {
-  const { products } = useContext(CartContext);
+  const [termsPopupOpened, setTermsPopupOpened] = useState(false);
+
+  const { products, clearCart } = useContext(CartContext);
   const { t } = useTranslation();
   const { setBreadcrumbs } = useContext(BreadcrumbsContext);
   useEffect(() => setBreadcrumbs([{ to: '/', label: t('common.breadcrumbs.home') }, { label: t('checkout.title') }]), [
@@ -29,35 +34,46 @@ const Checkout: React.FC = () => {
 
   const { create } = useRequest({ endpoint: 'orders' });
 
+  const history = useHistory();
   const submitHandler = useCallback(
     async values => {
       try {
-        await create(values);
+        const order = await create<Order>(values);
+        clearCart();
         toast.success('Order has been successfully created!');
+        history.push(`/orders/${order.id}`);
       } catch (e) {
         toast.error(t('common.messages.smthWrong'));
       }
     },
-    [create, t],
+    [clearCart, create, history, t],
   );
 
-  const initialValues = useMemo(
-    () => ({
-      customerName: '',
-      customerSurname: '',
-      customerCity: '',
-      customerNovaPoshtaDep: '',
-      customerPhone: '',
-      customerEmail: '',
-      createAccount: false,
-      comments: '',
-      paymentMethod: PAYMENT_METHOD.ON_CARD,
-      products,
-    }),
-    [products],
+  const termsClickHandler = useCallback(
+    (e: SyntheticEvent) => {
+      e.preventDefault();
+      setTermsPopupOpened(true);
+    },
+    [setTermsPopupOpened],
   );
 
   const { user } = useContext(UserContext);
+
+  const initialValues = useMemo(() => {
+    return prepareObjectToFormik({
+      customerName: user ? user.name : '',
+      customerSurname: user ? user.surname : '',
+      customerCity: user ? user.city : '',
+      customerNovaPoshtaDep: user ? user.novaPoshtaDep : '',
+      customerPhone: user ? user.phone : '',
+      customerEmail: user ? user.email : '',
+      createAccount: false,
+      comments: '',
+      paymentMethod: PAYMENT_METHOD.ON_CARD,
+      agreePrivacyPolicy: false,
+      products,
+    });
+  }, [products, user]);
 
   return (
     <div className="checkout-page">
@@ -71,7 +87,7 @@ const Checkout: React.FC = () => {
         </div>
       )}
       <Formik initialValues={initialValues} onSubmit={submitHandler} validationSchema={OrderSchema}>
-        {({ handleSubmit }): JSX.Element => (
+        {({ handleSubmit, errors }): JSX.Element => (
           <form className="checkout-form" onSubmit={handleSubmit}>
             <div className="customer-details">
               <div className="address">
@@ -99,17 +115,19 @@ const Checkout: React.FC = () => {
                     <Input id="shipping-email" name="customerEmail" label="Email address" />
                   </div>
                 </div>
-                <div className="account-fields">
-                  <p className="form-row">
-                    <Field
-                      component={Checkbox}
-                      id="createAccount"
-                      name="createAccount"
-                      label="Create an account?"
-                      onChange={(): void => {}}
-                    />
-                  </p>
-                </div>
+                {!user && (
+                  <div className="account-fields">
+                    <p className="form-row">
+                      <Field
+                        component={Checkbox}
+                        id="createAccount"
+                        name="createAccount"
+                        label="Create an account?"
+                        onChange={(): void => {}}
+                      />
+                    </p>
+                  </div>
+                )}
               </div>
               <div className="additional-info">
                 <h3>Additional information</h3>
@@ -137,14 +155,19 @@ const Checkout: React.FC = () => {
                 </Field>
                 <div className="form-row place-order">
                   <div className="terms-and-conditions">
-                    <p>
-                      Your personal data will be used to process your order, support your experience throughout this
-                      website, and for other purposes described in our&nbsp;
-                      <a href="#" target="_blank">
-                        privacy policy
-                      </a>
-                      .
-                    </p>
+                    <FormikCheckbox
+                      id="agreePrivacyPolicy"
+                      name="agreePrivacyPolicy"
+                      label={
+                        <>
+                          I agree with the&nbsp;
+                          <span onClick={termsClickHandler} className="terms-link">
+                            privacy policy
+                          </span>
+                        </>
+                      }
+                      onChange={(): void => {}}
+                    />
                   </div>
                   <Button label="Place order" type="submit" className="submit-order" />
                 </div>
@@ -153,6 +176,13 @@ const Checkout: React.FC = () => {
           </form>
         )}
       </Formik>
+      <Popup open={termsPopupOpened} onClose={(): void => setTermsPopupOpened(false)}>
+        <h2 className="text-center">Terms & Conditions</h2>
+        <p>
+          - We save your personal data to process your order and to support your experience throughout this website.
+        </p>
+        <p>- We share your personal data with delivery services and/or payment systems to process your order.</p>
+      </Popup>
     </div>
   );
 };

@@ -20,11 +20,11 @@ const PaymentMethods: React.FC = () => {
           value={PAYMENT_METHOD.ON_CARD}
           checked
           onChange={onMethodChanged(PAYMENT_METHOD.ON_CARD)}
-          label="Card"
+          label="Send to card"
         />
         {PAYMENT_METHOD.ON_CARD === method && (
           <div className="method-details">
-            <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
+            <p>We will contact you and provide with details.</p>
           </div>
         )}
       </li>

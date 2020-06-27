@@ -108,7 +108,21 @@
     border-radius: 0;
 }
 .checkout-page .order-review .terms-and-conditions {
-    padding: 0 30px;
+    border-top: 1px solid #ebebeb;
+    padding: 20px 30px 5px 30px;
+}
+.checkout-page .terms-and-conditions label {
+    color: #868686;
+}
+.checkout-page .order-review .terms-and-conditions .terms-link {
+    color: #000000;
+    cursor: pointer;
+}
+.checkout-page .order-review .terms-and-conditions label.error .terms-link {
+    color: inherit;
+}
+.checkout-page .order-review .terms-and-conditions .terms-link:hover {
+    color: #fa8f47;
 }
 .checkout-page .order-review .submit-order {
     width: 100%;
@@ -158,7 +172,7 @@
         letter-spacing: 0.1em;
     }
     .checkout-page .order-review .terms-and-conditions {
-        padding: 0 15px;
+        padding: 20px 15px 5px 15px;
     }
 }
 
