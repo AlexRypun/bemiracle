@@ -25,21 +25,27 @@ const Cart: React.FC = () => {
   return (
     <div className="cart-page">
       <h1 className="page-title">{t('cart.title')}</h1>
-      <Products />
-      <div className="total">
-        <h2>Cart totals</h2>
-        <table cellSpacing="0">
-          <tbody>
-            <tr>
-              <th>Total</th>
-              <td>{formatPrice(total)}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="to-checkout">
-          <Link to="/checkout">Proceed to checkout</Link>
-        </div>
-      </div>
+      {products.length === 0 ? (
+        <p className="no-data">The cart is empty</p>
+      ) : (
+        <>
+          <Products />
+          <div className="total">
+            <h2>Cart totals</h2>
+            <table cellSpacing="0">
+              <tbody>
+                <tr>
+                  <th>Total</th>
+                  <td>{formatPrice(total)}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div className="to-checkout">
+              <Link to="/checkout">Proceed to checkout</Link>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

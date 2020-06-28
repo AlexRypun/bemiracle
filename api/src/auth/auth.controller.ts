@@ -18,8 +18,8 @@ export class AuthController {
 
     @Post('/signup')
     @UsePipes(TransformPipe, ValidationPipe)
-    signUp(@Body() params: CreateUserDto): Promise<void> {
-        return this.authService.signUpUser(params);
+    async signUp(@Body() params: CreateUserDto): Promise<void> {
+        await this.authService.signUpUser(params);
     }
 
     @Put('/refreshtokens')

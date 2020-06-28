@@ -13,55 +13,64 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 
 @Injectable()
 export class OrdersService {
-    constructor(
-        private readonly usersService: UsersService,
-        private readonly productsService: ProductsService,
-        @InjectRepository(OrderRepository)
-        private readonly orderRepository: OrderRepository
-    ) {
-    }
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly productsService: ProductsService,
+    @InjectRepository(OrderRepository)
+    private readonly orderRepository: OrderRepository
+  ) {
+  }
 
-    getOrderById(id: number): Promise<Order> {
-        return this.orderRepository.findOne(id, { relations: ['products', 'products.product', 'products.product.translations', 'products.product.images', 'user'] });
-    }
+  getOrderById(id: number): Promise<Order> {
+    return this.orderRepository.findOne(id, { relations: ['products', 'products.product', 'products.product.translations', 'products.product.images', 'user'] });
+  }
 
-    getOrders(user: User): Promise<GetManyResponse<Order>> {
-        const isAdmin = this.usersService.isAdmin(user);
-        return this.orderRepository.getOrders(isAdmin ? {} : { userId: user.id });
-    }
+  getOrders(user: User): Promise<GetManyResponse<Order>> {
+    const isAdmin = this.usersService.isAdmin(user);
+    return this.orderRepository.getOrders(isAdmin ? {} : { userId: user.id });
+  }
 
-    async createOrder(data: CreateOrderDto, user: User): Promise<Order> {
-        const order = new Order();
-        Order.merge(order, data);
-        order.status = ORDER_STATUS.NEW;
-        let orderPrice = 0;
-        const products = await this.productsService.find({
-            where: { id: In(data.products.map(product => product.product.id)) },
-            select: ['id', 'price']
+  async createOrder(data: CreateOrderDto, user: User): Promise<Order> {
+    const order = new Order();
+    Order.merge(order, data);
+    order.status = ORDER_STATUS.NEW;
+    let orderPrice = 0;
+    const products = await this.productsService.find({
+      where: { id: In(data.products.map(product => product.product.id)) },
+      select: ['id', 'price']
+    });
+    const productPrice = {};
+    products.forEach(product => {
+      productPrice[product.id] = product.price;
+    });
+    order.products.forEach(product => {
+      product.price = productPrice[product.product.id];
+      orderPrice += product.price * product.quantity;
+    });
+    order.price = orderPrice;
+
+    if (user) {
+      order.user = user;
+    } else {
+      if (data.createAccount) {
+        order.user = await this.usersService.signUp({
+          email: data.customerEmail,
+          password: data.password,
+          name: data.customerName,
+          surname: data.customerSurname,
+          city: data.customerCity,
+          phone: data.customerPhone,
+          novaPoshtaDep: data.customerNovaPoshtaDep
         });
-        const productPrice = {};
-        products.forEach(product => {
-            productPrice[product.id] = product.price;
-        });
-        order.products.forEach(product => {
-            product.price = productPrice[product.product.id];
-            orderPrice += product.price * product.quantity;
-        });
-        order.price = orderPrice;
-
-        if (user) {
-            const isAdmin = this.usersService.isAdmin(user);
-            if (!isAdmin) {
-                order.user = user;
-            }
-        } else {
-            delete order.user;
-        }
-
-        return this.orderRepository.createOrder(order);
+      } else {
+        delete order.user;
+      }
     }
 
-    updateOrder(id: number, data: UpdateOrderDto): Promise<Order> {
-        return this.orderRepository.updateOrder(id, data);
-    }
+    return this.orderRepository.createOrder(order);
+  }
+
+  updateOrder(id: number, data: UpdateOrderDto): Promise<Order> {
+    return this.orderRepository.updateOrder(id, data);
+  }
 }

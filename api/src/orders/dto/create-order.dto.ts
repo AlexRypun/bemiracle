@@ -1,4 +1,14 @@
-import { ArrayNotEmpty, IsEmail, IsEnum, IsInt, IsOptional, IsString, MaxLength, ValidateNested } from 'class-validator';
+import {
+    ArrayNotEmpty, Equals,
+    IsBoolean,
+    IsEmail,
+    IsEnum,
+    IsInt,
+    IsOptional,
+    IsString, Length,
+    MaxLength, ValidateIf,
+    ValidateNested
+} from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 
 import { CreateOrderProductDto } from './create-order-product.dto';
@@ -37,6 +47,17 @@ export class CreateOrderDto {
     @IsOptional()
     @IsString()
     comments?: string;
+
+    @Equals(true)
+    agreePrivacyPolicy: boolean;
+
+    @IsOptional()
+    @IsBoolean()
+    createAccount?: boolean;
+
+    @ValidateIf(o => o.createAccount === true)
+    @Length(6, 50)
+    password: string;
 
     @ArrayNotEmpty()
     @ValidateNested({ each: true })

@@ -35,11 +35,21 @@ const Checkout: React.FC = () => {
   const { create } = useRequest({ endpoint: 'orders' });
 
   const history = useHistory();
+
+  useEffect(() => {
+    if (products.length === 0) {
+      history.replace('/');
+    }
+  }, [history, products]);
+
   const submitHandler = useCallback(
     async values => {
       try {
         const order = await create<Order>(values);
         clearCart();
+        if (values.createAccount) {
+          toast.success('User has been successfully created!');
+        }
         toast.success('Order has been successfully created!');
         history.push(`/orders/${order.id}`);
       } catch (e) {
@@ -71,6 +81,8 @@ const Checkout: React.FC = () => {
       comments: '',
       paymentMethod: PAYMENT_METHOD.ON_CARD,
       agreePrivacyPolicy: false,
+      password: '',
+      repeatPassword: '',
       products,
     });
   }, [products, user]);
@@ -87,7 +99,7 @@ const Checkout: React.FC = () => {
         </div>
       )}
       <Formik initialValues={initialValues} onSubmit={submitHandler} validationSchema={OrderSchema}>
-        {({ handleSubmit, errors }): JSX.Element => (
+        {({ handleSubmit, values }): JSX.Element => (
           <form className="checkout-form" onSubmit={handleSubmit}>
             <div className="customer-details">
               <div className="address">
@@ -109,10 +121,54 @@ const Checkout: React.FC = () => {
                       required
                     />
                     <div className="clear" />
+                    {values.createAccount && (
+                      <>
+                        <Input
+                          id="password"
+                          name="password"
+                          label="Password"
+                          type="password"
+                          required
+                          wrapperClasses="form-row-first"
+                        />
+                        <Input
+                          id="repeatPassword"
+                          name="repeatPassword"
+                          label="Repeat password"
+                          type="password"
+                          required
+                          wrapperClasses="form-row-last"
+                        />
+                        <div className="clear" />
+                      </>
+                    )}
                     <Input id="shipping-city" name="customerCity" label="City" required />
-                    <Input id="shipping-np" name="customerNovaPoshtaDep" label="Nova Poshta Dep" required />
-                    <Input id="shipping-phone" name="customerPhone" label="Phone" required />
-                    <Input id="shipping-email" name="customerEmail" label="Email address" />
+                    <Input
+                      id="shipping-np"
+                      name="customerNovaPoshtaDep"
+                      label={
+                        <>
+                          {t('profile.npDep')} <span className="label-help-text">({t('profile.helpText.npDep')})</span>
+                        </>
+                      }
+                      required
+                    />
+                    <Input
+                      id="shipping-phone"
+                      name="customerPhone"
+                      label={
+                        <>
+                          {t('profile.phone')} <span className="label-help-text">({t('profile.helpText.phone')})</span>
+                        </>
+                      }
+                      required
+                    />
+                    <Input
+                      id="shipping-email"
+                      name="customerEmail"
+                      label="Email address"
+                      required={values.createAccount}
+                    />
                   </div>
                 </div>
                 {!user && (

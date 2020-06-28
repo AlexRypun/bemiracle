@@ -1,4 +1,13 @@
-import React, { useCallback, useContext, useEffect, useRef, useState, MouseEvent, useMemo } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  MouseEvent,
+  useMemo,
+  SyntheticEvent,
+} from 'react';
 import { Link } from 'react-router-dom';
 
 import Canvas from '../../../canvas';
@@ -38,6 +47,15 @@ const CartIcon: React.FC = () => {
 
   const { formatPrice } = useFormat();
 
+  const toCheckoutHandler = useCallback(
+    (e: SyntheticEvent): void => {
+      if (products.length === 0) {
+        e.preventDefault();
+      }
+    },
+    [products],
+  );
+
   return (
     <div className="block-minicart block-dreaming akasha-mini-cart akasha-dropdown cart-icon">
       <div className="shopcart-dropdown block-cart-link" onClick={(): void => setOpened(true)}>
@@ -65,7 +83,11 @@ const CartIcon: React.FC = () => {
               <Link to="/cart" className="button akasha-forward">
                 View cart
               </Link>
-              <Link to="/checkout" className="button checkout akasha-forward">
+              <Link
+                to="/checkout"
+                className={`button checkout akasha-forward ${products.length === 0 ? 'disabled' : ''}`}
+                onClick={toCheckoutHandler}
+              >
                 Checkout
               </Link>
             </p>

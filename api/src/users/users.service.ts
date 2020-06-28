@@ -18,12 +18,12 @@ export class UsersService {
         @InjectRepository(UserGroup)
         private readonly userGroupRepository: Repository<UserGroup>
     ) {}
-    async signUp(params: CreateUserDto): Promise<void> {
+    async signUp(params: CreateUserDto): Promise<User> {
         const user = new User();
         User.merge(user, params);
         const userGroup = await this.userGroupRepository.findOne(this.configService.get('app.userRole.user'));
         user.groups = [userGroup];
-        await user.save();
+        return await user.save();
     }
     async signIn(email: string, password: string): Promise<User> {
         const query = this.userRepository.createQueryBuilder('user').innerJoinAndSelect('user.groups', 'groups');
