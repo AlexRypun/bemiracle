@@ -27,8 +27,10 @@ export class AuthService {
     return this.generateTokensPair(user.id, user);
   }
 
-  signUpUser(params: CreateUserDto): Promise<User> {
-    return this.userService.signUp(params);
+  async signUpUser(params: CreateUserDto): Promise<User> {
+    const user = await this.userService.signUp(params);
+    await this.userService.sendWelcomeEmail(user.id);
+    return user;
   }
 
   async refreshTokens(refreshToken: string): Promise<IJwtTokens> {

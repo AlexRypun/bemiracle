@@ -7,11 +7,13 @@ import { AuthModule } from '../auth/auth.module';
 import { ConfigService } from '@nestjs/config';
 import { UserGroup } from './userGroup.entity';
 import { IsEmailUsedConstraint } from './decorators/is-email-used.decorator';
+import { TemplatesModule } from '../templates/templates.module';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([UserRepository, UserGroup]),
-        forwardRef(() => AuthModule)
+        forwardRef(() => AuthModule),
+        TemplatesModule
     ],
     providers: [UsersService, ConfigService, IsEmailUsedConstraint],
     exports: [UsersService],
