@@ -8,7 +8,6 @@ import Breadcrumbs from './components/breadcrumbs';
 import Header from './components/header';
 import Footer from './components/footer';
 import HomePage from './pages/homepage/homepage';
-import AboutUs from './pages/about-us/about-us';
 import Delivery from './pages/delivery';
 import Category from './pages/category/category';
 import Product from './pages/product';
@@ -43,7 +42,6 @@ const App: React.FC = () => (
             <div className="main-container container">
               <Switch>
                 <Route path="/" exact component={HomePage} />
-                <Route path="/about-us" component={AboutUs} />
                 <Route path="/delivery" component={Delivery} />
                 <Route path="/category/:categoryId" component={Category} />
                 <Route path="/products/:productId" component={Product} />

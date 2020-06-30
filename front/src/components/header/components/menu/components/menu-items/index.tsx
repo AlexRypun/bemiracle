@@ -31,9 +31,6 @@ const MenuItems: React.FC<Props> = ({ renderMenuCategoryItem }) => {
       <li className="menu-item">
         <Link to="/delivery">{t('menu.delivery')}</Link>
       </li>
-      <li className="menu-item">
-        <Link to="/about-us">{t('menu.aboutUs')}</Link>
-      </li>
     </ul>
   );
 };
