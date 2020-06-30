@@ -172,6 +172,7 @@ const translation = {
   },
   delivery: {
     title: 'Payments and delivery',
+    content: '<p><i>Coming soon... =)</i></p>',
   },
   category: {
     noData: 'There are no products in this category',

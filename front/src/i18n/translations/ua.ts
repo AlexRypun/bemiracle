@@ -172,6 +172,7 @@ const translation = {
   },
   delivery: {
     title: 'Оплата і доставка',
+    content: '<p><i>Незабаром... =)</i></p>',
   },
   category: {
     noData: 'В цій категорії немає продуктів',
