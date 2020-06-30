@@ -30,14 +30,68 @@ const translation = {
   checkout: {
     title: 'Оформлення замовлення',
     placeOrder: 'Замовити',
+    loginTitle: 'Маєте аккаунт?',
+    toLogin: 'Увійти',
+    shippingTitle: 'Адреса доставки',
+    additionalTitle: 'Додаткова інформація',
+    name: "Ім'я",
+    surname: 'Прізвище',
+    city: 'Місто (село)',
+    npDep: 'Відділення "Нова Пошта"',
+    phone: 'Телефон',
+    email: 'Email',
+    password: 'Пароль',
+    repeatPassword: 'Повторіть пароль',
+    createAccount: 'Створити аккаунт?',
+    notes: 'Примітки',
+    notesPlaceholder: 'Примітки по Вашому замовленню, наприклад, уточнення про доставку.',
+    orderTitle: 'Ваше замовлення',
+    agreePrivacyPolicy: 'Я згод(ен/на) з <s>політикою конфіденційності</s>',
+    helpText: {
+      phone: '+380XXXXXXXXX',
+      npDep: 'номер',
+    },
+    products: {
+      total: 'Всього',
+      columns: {
+        name: 'Продукт',
+        total: 'Всього',
+      },
+    },
+  },
+  termsPopup: {
+    title: 'Політика конфіденційності',
+    content:
+      '<p>- Ми зберігаємо Ваші особисті дані для обробки Вашого замовлення і зручності Вашого використання сайту.</p>' +
+      '<p>- Ми передаємо Ваші дані службам доставки і/або платіжним системам для обробки Вашого замовлення.</p>' +
+      '<p>- Ми не передаємо Ваші особисті дані іншим третім особам.</p>',
   },
   signIn: {
+    title: 'Увійти',
+    email: 'Email',
+    password: 'Пароль',
+    signIn: 'Увійти',
+    lostPassword: 'Забули пароль?',
     messages: {
       wrongCred: 'Email або пароль невірний',
       hiUser: 'Привіт, {{name}}',
     },
   },
   signUp: {
+    title: 'Реєстрація',
+    name: "Ім'я",
+    surname: 'Прізвище',
+    city: 'Місто (село)',
+    npDep: 'Відділення "Нова Пошта"',
+    phone: 'Телефон',
+    email: 'Email',
+    password: 'Пароль',
+    repeatPassword: 'Повторіть пароль',
+    register: 'Зареєструватися',
+    helpText: {
+      phone: '+380XXXXXXXXX',
+      npDep: 'номер',
+    },
     messages: {
       success: 'Вітаємо! Тепер Ви можете залогінитись',
     },
@@ -57,7 +111,7 @@ const translation = {
     price: 'Ціна',
     paymentMethod: 'Метод оплати',
     createdDate: 'Дата',
-    noOrders: 'Нема замовлень',
+    noData: 'Нема замовлень',
   },
   order: {
     title: 'Замовлення #{{id}}',
@@ -102,12 +156,58 @@ const translation = {
   },
   cart: {
     title: 'Кошик',
+    totals: 'Підсумки кошика',
+    total: 'Всього',
+    toCheckout: 'Оформити замовлення',
+    noData: 'Кошик пустий',
+    columns: {
+      name: 'Продукт',
+      price: 'Ціна',
+      quantity: 'Кількість',
+      total: 'Всього',
+    },
   },
   aboutUs: {
     title: 'Про нас',
   },
   delivery: {
     title: 'Оплата і доставка',
+  },
+  category: {
+    noData: 'В цій категорії немає продуктів',
+    sorting: {
+      byDate: {
+        label: 'За датою: {{direction}}',
+        asc: 'спочатку ранні',
+        desc: 'спочатку нові',
+      },
+      byPrice: {
+        label: 'За ціною: {{direction}}',
+        asc: 'дешеві -> дорогі',
+        desc: 'дорогі -> дешеві',
+      },
+    },
+  },
+  pagination: {
+    show: 'Показати {{qty}}',
+    showing: 'Показано {{from}} - {{to}} з {{total}} результатів',
+  },
+  cartCanvas: {
+    title: 'Ваш кошик',
+    total: 'Всього',
+    toCart: 'До кошика',
+    toCheckout: 'Оформити',
+  },
+  paymentMethod: {
+    oncard: 'Скинути на карту',
+    cash: 'Оплатити при отриманні',
+    helpText: {
+      oncard: "Ми зв'яжемося з Вами та надамо всю необхідну інформацію.",
+      cash: 'Оплачуйте при отриманні ("Нова пошта" знімає додаткову плату).',
+    },
+  },
+  footer: {
+    copyright: '© Копірайт 2020 <l>Bemiracle</l>. Всі права захищені.',
   },
 };
 

@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Product from '../product';
+import { CartContext } from '../../../contexts/cart';
 
 import './styles.css';
-import { CartContext } from '../../../contexts/cart';
 
 const Products: React.FC = () => {
   const { products } = useContext(CartContext);
+  const { t } = useTranslation();
 
   return (
     <table className="cart-products-list" cellSpacing="0">
@@ -22,10 +24,10 @@ const Products: React.FC = () => {
         <tr>
           <th />
           <th />
-          <th className="name">Product</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Total</th>
+          <th className="name">{t('cart.columns.name')}</th>
+          <th>{t('cart.columns.price')}</th>
+          <th>{t('cart.columns.quantity')}</th>
+          <th>{t('cart.columns.total')}</th>
         </tr>
       </thead>
       <tbody>

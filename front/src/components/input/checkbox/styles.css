@@ -1,6 +1,5 @@
 label.input-checkbox-label span.label {
     position: relative;
-    font-size: 18px;
     padding-left: 26px;
 }
 label.input-checkbox-label span.label::before {

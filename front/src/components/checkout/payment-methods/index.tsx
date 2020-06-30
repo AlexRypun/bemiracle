@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { PAYMENT_METHOD } from '../../../types/orders';
 import RadioInput from '../../input/radio';
@@ -11,6 +12,8 @@ const PaymentMethods: React.FC = () => {
     setMethod,
   ]);
 
+  const { t } = useTranslation();
+
   return (
     <ul className="payment-methods">
       <li>
@@ -20,11 +23,11 @@ const PaymentMethods: React.FC = () => {
           value={PAYMENT_METHOD.ON_CARD}
           checked
           onChange={onMethodChanged(PAYMENT_METHOD.ON_CARD)}
-          label="Send to card"
+          label={t(`paymentMethod.${PAYMENT_METHOD.ON_CARD}`)}
         />
         {PAYMENT_METHOD.ON_CARD === method && (
           <div className="method-details">
-            <p>We will contact you and provide with details.</p>
+            <p>{t(`paymentMethod.helpText.${PAYMENT_METHOD.ON_CARD}`)}</p>
           </div>
         )}
       </li>
@@ -34,11 +37,11 @@ const PaymentMethods: React.FC = () => {
           name="paymentMethod"
           value={PAYMENT_METHOD.CASH}
           onChange={onMethodChanged(PAYMENT_METHOD.CASH)}
-          label="Cash on delivery"
+          label={t(`paymentMethod.${PAYMENT_METHOD.CASH}`)}
         />
         {PAYMENT_METHOD.CASH === method && (
           <div className="method-details">
-            <p>Pay with cash upon delivery.</p>
+            <p>{t(`paymentMethod.helpText.${PAYMENT_METHOD.CASH}`)}</p>
           </div>
         )}
       </li>

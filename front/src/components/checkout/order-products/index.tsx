@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { OrderProduct as CartProduct } from '../../../types/orders';
 import OrderProduct from '../order-product';
@@ -11,13 +12,14 @@ type Props = {
 
 const OrderProducts: React.FC<Props> = ({ products }) => {
   const total = useMemo(() => products.reduce((sum, product) => sum + product.price * product.quantity, 0), [products]);
+  const { t } = useTranslation();
 
   return (
     <table className="order-table">
       <thead>
         <tr>
-          <th>Product</th>
-          <th>Total</th>
+          <th>{t('checkout.products.columns.name')}</th>
+          <th>{t('checkout.products.columns.total')}</th>
         </tr>
       </thead>
       <tbody>
@@ -27,7 +29,7 @@ const OrderProducts: React.FC<Props> = ({ products }) => {
       </tbody>
       <tfoot>
         <tr>
-          <th>Total</th>
+          <th>{t('checkout.products.total')}</th>
           <td>${total}</td>
         </tr>
       </tfoot>

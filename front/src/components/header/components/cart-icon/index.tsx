@@ -18,6 +18,7 @@ import { CartContext } from '../../../../contexts/cart';
 import useFormat from '../../../../hooks/use-format';
 
 import './styles.css';
+import { useTranslation } from 'react-i18next';
 
 const CartIcon: React.FC = () => {
   const { products, removeFromCart } = useContext(CartContext);
@@ -56,6 +57,8 @@ const CartIcon: React.FC = () => {
     [products],
   );
 
+  const { t } = useTranslation();
+
   return (
     <div className="block-minicart block-dreaming akasha-mini-cart akasha-dropdown cart-icon">
       <div className="shopcart-dropdown block-cart-link" onClick={(): void => setOpened(true)}>
@@ -68,7 +71,8 @@ const CartIcon: React.FC = () => {
         <div ref={ref} className="widget akasha widget_shopping_cart cart-canvas">
           <div className="widget_shopping_cart_content">
             <h3 className="minicart-title">
-              Your Cart<span className="count">{products.length}</span>
+              {t('cartCanvas.title')}
+              <span className="count">{products.length}</span>
             </h3>
             <ul className="akasha-mini-cart cart_list product_list_widget products-list">
               {products.map(product => (
@@ -76,19 +80,19 @@ const CartIcon: React.FC = () => {
               ))}
             </ul>
             <p className="akasha-mini-cart__total total">
-              <strong>Subtotal:</strong>
+              <strong>{t('cartCanvas.total')}:</strong>
               <span className="akasha-Price-amount amount">{formatPrice(total)}</span>
             </p>
             <p className="akasha-mini-cart__buttons buttons">
               <Link to="/cart" className="button akasha-forward">
-                View cart
+                {t('cartCanvas.toCart')}
               </Link>
               <Link
                 to="/checkout"
                 className={`button checkout akasha-forward ${products.length === 0 ? 'disabled' : ''}`}
                 onClick={toCheckoutHandler}
               >
-                Checkout
+                {t('cartCanvas.toCheckout')}
               </Link>
             </p>
           </div>

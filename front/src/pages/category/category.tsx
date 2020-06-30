@@ -40,34 +40,37 @@ const CategoryPage: React.FC = () => {
   const [products, setProducts] = useState<Products>(initialState);
   const [category, setCategory] = useState<Category | null>(null);
   const [filters, setFilters] = useState<Filters>(initialFilters);
+
+  const { t } = useTranslation();
+
   const perPageOptions = useMemo(
     () =>
       constants.products.perPage.map(count => ({
         value: count,
-        label: `Show ${count}`,
+        label: t('pagination.show', { qty: count }),
       })),
-    [],
+    [t],
   );
   const sortingOptions = useMemo(
     () => [
       {
         value: '-id',
-        label: `Sort by date: latest to earliest`,
+        label: t('category.sorting.byDate.label', { direction: t('category.sorting.byDate.desc') }),
       },
       {
         value: 'id',
-        label: `Sort by date: earliest to latest`,
+        label: t('category.sorting.byDate.label', { direction: t('category.sorting.byDate.asc') }),
       },
       {
         value: '-price',
-        label: `Sort by price: high to low`,
+        label: t('category.sorting.byPrice.label', { direction: t('category.sorting.byPrice.desc') }),
       },
       {
         value: 'price',
-        label: `Sort by price: low to high`,
+        label: t('category.sorting.byPrice.label', { direction: t('category.sorting.byPrice.asc') }),
       },
     ],
-    [],
+    [t],
   );
 
   const componentIsMounted = useRef(true);
@@ -124,7 +127,6 @@ const CategoryPage: React.FC = () => {
   }, [history, match, getCategory]);
 
   const { setBreadcrumbs } = useContext(BreadcrumbsContext);
-  const { t } = useTranslation();
   const categoryTranslation = useEntityTranslation<CategoryTranslation>(category);
   const parentCategoryTranslation = useEntityTranslation<CategoryTranslation>(category?.parent || null);
 
@@ -144,7 +146,7 @@ const CategoryPage: React.FC = () => {
     <div className="category-products">
       <h1 className="page-title">{categoryTranslation.name}</h1>
       {products.total === 0 && !isFetching && !isCategoryFetching ? (
-        <p className="no-data">There are no products</p>
+        <p className="no-data">{t('category.noData')}</p>
       ) : (
         <Loader isLoading={isFetching || isCategoryFetching} showChildren={products.total > 0}>
           <div className="category-products-control">

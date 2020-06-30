@@ -39,7 +39,7 @@ const OrdersPage: React.FC = () => {
     <div className="orders-page">
       <h1 className="page-title">{t('orders.header')}</h1>
       {orders.length === 0 && !isFetching ? (
-        <p className="no-data">{t('orders.noOrders')}</p>
+        <p className="no-data">{t('orders.noData')}</p>
       ) : (
         <Loader isLoading={isFetching}>
           <table className="orders-list" cellSpacing="0">

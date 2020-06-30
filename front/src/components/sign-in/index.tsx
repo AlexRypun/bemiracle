@@ -49,12 +49,12 @@ const SignIn: React.FC = () => {
     <Formik initialValues={initialValues} onSubmit={submitHandler} validationSchema={SignInSchema}>
       {({ handleSubmit }): JSX.Element => (
         <form className="login-form" onSubmit={handleSubmit}>
-          <Input id="email" name="email" label="Email" required />
-          <Input id="password" name="password" label="Password" type="password" required />
+          <Input id="email" name="email" label={t('signIn.email')} required />
+          <Input id="password" name="password" label={t('signIn.password')} type="password" required />
           <p className="buttons">
-            <Button label="Log in" type="submit" className="login-button" />
-            <span className="lost-password">
-              <Link to="resetpassword">Lost your password?</Link>
+            <Button label={t('signIn.signIn')} type="submit" className="login-button" />
+            <span className="lost-password hidden">
+              <Link to="resetpassword">{t('signIn.lostPassword')}</Link>
             </span>
           </p>
         </form>

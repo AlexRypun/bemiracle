@@ -1,7 +1,7 @@
 import React, { SyntheticEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { Formik, Field } from 'formik';
 import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom';
 
 import OrderProducts from '../../components/checkout/order-products';
@@ -92,9 +92,10 @@ const Checkout: React.FC = () => {
       <h1 className="page-title">{t('checkout.title')}</h1>
       {!user && (
         <div className="login-block">
-          Returning customer?&nbsp;
+          {t('checkout.loginTitle')}
+          &nbsp;
           <Link to="/signin" className="login">
-            Click here to login
+            {t('checkout.toLogin')}
           </Link>
         </div>
       )}
@@ -104,51 +105,32 @@ const Checkout: React.FC = () => {
             <div className="customer-details">
               <div className="address">
                 <div className="shipping">
-                  <h3>Shipping details</h3>
+                  <h3>{t('checkout.shippingTitle')}</h3>
                   <div className="shipping-fields">
                     <Input
                       id="shipping-name"
                       name="customerName"
                       wrapperClasses="form-row-first"
-                      label="First name"
+                      label={t('checkout.name')}
                       required
                     />
                     <Input
                       id="shipping-surname"
                       name="customerSurname"
                       wrapperClasses="form-row-last"
-                      label="Last name"
+                      label={t('checkout.surname')}
                       required
                     />
                     <div className="clear" />
-                    {values.createAccount && (
-                      <>
-                        <Input
-                          id="password"
-                          name="password"
-                          label="Password"
-                          type="password"
-                          required
-                          wrapperClasses="form-row-first"
-                        />
-                        <Input
-                          id="repeatPassword"
-                          name="repeatPassword"
-                          label="Repeat password"
-                          type="password"
-                          required
-                          wrapperClasses="form-row-last"
-                        />
-                        <div className="clear" />
-                      </>
-                    )}
                     <Input id="shipping-city" name="customerCity" label="City" required />
                     <Input
                       id="shipping-np"
                       name="customerNovaPoshtaDep"
                       label={
                         <>
-                          {t('profile.npDep')} <span className="label-help-text">({t('profile.helpText.npDep')})</span>
+                          {t('checkout.npDep')}
+                          &nbsp;
+                          <span className="label-help-text">({t('checkout.helpText.npDep')})</span>
                         </>
                       }
                       required
@@ -158,7 +140,9 @@ const Checkout: React.FC = () => {
                       name="customerPhone"
                       label={
                         <>
-                          {t('profile.phone')} <span className="label-help-text">({t('profile.helpText.phone')})</span>
+                          {t('checkout.phone')}
+                          &nbsp;
+                          <span className="label-help-text">({t('checkout.helpText.phone')})</span>
                         </>
                       }
                       required
@@ -166,9 +150,31 @@ const Checkout: React.FC = () => {
                     <Input
                       id="shipping-email"
                       name="customerEmail"
-                      label="Email address"
+                      label={t('checkout.email')}
                       required={values.createAccount}
+                      wrapperClasses={values.createAccount ? '' : 'mb-0'}
                     />
+                    {values.createAccount && (
+                      <>
+                        <Input
+                          id="password"
+                          name="password"
+                          label={t('checkout.password')}
+                          type="password"
+                          required
+                          wrapperClasses="form-row-first mb-0"
+                        />
+                        <Input
+                          id="repeatPassword"
+                          name="repeatPassword"
+                          label={t('checkout.repeatPassword')}
+                          type="password"
+                          required
+                          wrapperClasses="form-row-last mb-0"
+                        />
+                        <div className="clear" />
+                      </>
+                    )}
                   </div>
                 </div>
                 {!user && (
@@ -178,7 +184,7 @@ const Checkout: React.FC = () => {
                         component={Checkbox}
                         id="createAccount"
                         name="createAccount"
-                        label="Create an account?"
+                        label={t('checkout.createAccount')}
                         onChange={(): void => {}}
                       />
                     </p>
@@ -186,15 +192,15 @@ const Checkout: React.FC = () => {
                 )}
               </div>
               <div className="additional-info">
-                <h3>Additional information</h3>
+                <h3>{t('checkout.additionalTitle')}</h3>
                 <div className="additional-fields">
                   <p className="form-row">
-                    <label htmlFor="order-comments">Order notes</label>
+                    <label htmlFor="order-comments">{t('checkout.notes')}</label>
                     <Field
                       as="textarea"
                       name="comments"
                       id="order-comments"
-                      placeholder="Notes about your order, e.g. special notes for delivery."
+                      placeholder={t('checkout.notesPlaceholder')}
                       rows={2}
                       cols={5}
                     />
@@ -202,7 +208,7 @@ const Checkout: React.FC = () => {
                 </div>
               </div>
             </div>
-            <h3 className="order-review-header">Your order</h3>
+            <h3 className="order-review-header">{t('checkout.orderTitle')}</h3>
             <div className="order-review">
               <OrderProducts products={products} />
               <div className="payment">
@@ -215,17 +221,15 @@ const Checkout: React.FC = () => {
                       id="agreePrivacyPolicy"
                       name="agreePrivacyPolicy"
                       label={
-                        <>
-                          I agree with the&nbsp;
-                          <span onClick={termsClickHandler} className="terms-link">
-                            privacy policy
-                          </span>
-                        </>
+                        <Trans
+                          i18nKey="checkout.agreePrivacyPolicy"
+                          components={{ s: <span onClick={termsClickHandler} className="terms-link" /> }}
+                        />
                       }
                       onChange={(): void => {}}
                     />
                   </div>
-                  <Button label="Place order" type="submit" className="submit-order" />
+                  <Button label={t('checkout.placeOrder')} type="submit" className="submit-order" />
                 </div>
               </div>
             </div>
@@ -233,11 +237,8 @@ const Checkout: React.FC = () => {
         )}
       </Formik>
       <Popup open={termsPopupOpened} onClose={(): void => setTermsPopupOpened(false)}>
-        <h2 className="text-center">Terms & Conditions</h2>
-        <p>
-          - We save your personal data to process your order and to support your experience throughout this website.
-        </p>
-        <p>- We share your personal data with delivery services and/or payment systems to process your order.</p>
+        <h2 className="text-center">{t('termsPopup.title')}</h2>
+        <Trans i18nKey="termsPopup.content" />
       </Popup>
     </div>
   );

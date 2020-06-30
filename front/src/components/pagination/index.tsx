@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useMemo } from 'react';
 
 import { BrowserContext } from '../../contexts/browser';
 import './styles.css';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   page: number;
@@ -29,6 +30,8 @@ const Pagination: React.FC<Props> = ({ page, perPage, total, onPageChanged }) =>
     return [from, total < to ? total : to];
   }, [page, perPage, total]);
 
+  const { t } = useTranslation();
+
   return (
     <div className="pagination">
       <nav>
@@ -51,9 +54,7 @@ const Pagination: React.FC<Props> = ({ page, perPage, total, onPageChanged }) =>
           <span className="next page" onClick={onPageClicked(showPages[showPages.length - 1] + 1)} />
         )}
       </nav>
-      <p className="results-count">
-        Showing {fromItem} - {toItem} of {total} results
-      </p>
+      <p className="results-count">{t('pagination.showing', { from: fromItem, to: toItem, total })}</p>
     </div>
   );
 };

@@ -60,17 +60,17 @@ const SignUpPage: React.FC = () => {
     <Redirect to="/" />
   ) : (
     <div className="registration-page">
-      <h2>Register</h2>
+      <h2>{t('signUp.title')}</h2>
       <Formik initialValues={initialValues} onSubmit={submitHandler} validationSchema={SignUpSchema}>
         {({ handleSubmit }): JSX.Element => (
           <form className="registration-form" onSubmit={handleSubmit}>
-            <Input id="name" name="name" label="Name" required wrapperClasses="form-row-first" />
-            <Input id="surname" name="surname" label="Surname" required wrapperClasses="form-row-last" />
+            <Input id="name" name="name" label={t('signUp.name')} required wrapperClasses="form-row-first" />
+            <Input id="surname" name="surname" label={t('signUp.surname')} required wrapperClasses="form-row-last" />
             <div className="clear" />
             <Input
               id="password"
               name="password"
-              label="Password"
+              label={t('signUp.password')}
               type="password"
               required
               wrapperClasses="form-row-first"
@@ -78,28 +78,41 @@ const SignUpPage: React.FC = () => {
             <Input
               id="repeatPassword"
               name="repeatPassword"
-              label="Repeat password"
+              label={t('signUp.repeatPassword')}
               type="password"
               required
               wrapperClasses="form-row-last"
             />
             <div className="clear" />
-            <Input id="email" name="email" label="Email" required wrapperClasses="form-row-first" />
+            <Input id="email" name="email" label={t('signUp.email')} required wrapperClasses="form-row-first" />
             <Input
               id="phone"
               name="phone"
               label={
                 <>
-                  Phone <span className="label-help-text">(+380XXXXXXXXX)</span>
+                  {t('signUp.phone')}
+                  &nbsp;
+                  <span className="label-help-text">({t('signUp.helpText.phone')})</span>
                 </>
               }
               wrapperClasses="form-row-last"
             />
             <div className="clear" />
-            <Input id="city" name="city" label="City" wrapperClasses="form-row-first" />
-            <Input id="novaPoshtaDep" name="novaPoshtaDep" label="Nova Poshta Dep" wrapperClasses="form-row-last" />
+            <Input id="city" name="city" label={t('signUp.city')} wrapperClasses="form-row-first" />
+            <Input
+              id="novaPoshtaDep"
+              name="novaPoshtaDep"
+              label={
+                <>
+                  {t('signUp.npDep')}
+                  &nbsp;
+                  <span className="label-help-text">({t('signUp.helpText.npDep')})</span>
+                </>
+              }
+              wrapperClasses="form-row-last"
+            />
             <p className="buttons">
-              <Button label="Register" type="submit" className="registration-button" />
+              <Button label={t('signUp.register')} type="submit" className="registration-button" />
             </p>
           </form>
         )}
