@@ -24,7 +24,7 @@ import { extname, resolve } from 'path';
 export class MyConfigModule extends ConfigModule {
     static register(): DynamicModule {
         return super.forRoot({
-            envFilePath: `./src/configuration/.${process.env.NODE_ENV || 'development'}.env`,
+            envFilePath: `.${process.env.NODE_ENV || 'development'}.env`,
             load: [config]
         });
     }

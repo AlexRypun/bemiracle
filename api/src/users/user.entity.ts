@@ -1,6 +1,6 @@
 import { BaseEntity, BeforeInsert, BeforeUpdate, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { hash } from 'bcrypt';
+import { hash } from 'bcryptjs';
 import { UserGroup } from './userGroup.entity';
 
 @Entity({ name: 'users' })

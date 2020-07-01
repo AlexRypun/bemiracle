@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/co
 import { UserRepository } from './user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
-import { compare } from 'bcrypt';
+import { compare } from 'bcryptjs';
 import { ConfigService } from '@nestjs/config';
 import { UserGroup } from './userGroup.entity';
 import { Repository } from 'typeorm';
